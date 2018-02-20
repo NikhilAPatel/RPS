@@ -280,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
         p2scissorButton.setClickable(false);
         try {
             t1.pause();
+            t2.pause();
         }catch(Exception e){
 
         }
