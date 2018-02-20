@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     //TODO fix all the timer bugs(basically make it work)
     //TODO add way for users to know who is winning
     //TODO find a way to get rid of title bar
-    //TODO put this guy on Github
 
 
     private ImageButton p1paperButton;
@@ -42,6 +41,27 @@ public class MainActivity extends AppCompatActivity {
     private int millis = 0;
     public int count = 0;
     public int p1scorenum;
+    CountDownTimerPausable t = new  CountDownTimerPausable(60000, 1) {
+
+        public void onTick(long millisUntilFinished) {
+            if(p1score.getText().toString().equals("")){
+                p1scorenum = 0;
+            }else {
+                p1scorenum = Integer.parseInt(p1score.getText().toString());
+            }
+
+            count = (60- (int) millisRemaining/1000);
+            p1score.setText(count + "" );
+
+        }
+
+        public void onFinish() {
+            timer.setText("Game Done");
+            endGame();
+        }
+    };
+
+
 
 
 
@@ -85,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     startGame();
                 }
                 p2state = "rock";
+
                 checkWinning();
             }
         };
@@ -105,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                     startGame();
                 }
                 p2state = "paper";
+
                 checkWinning();
             }
         };
@@ -125,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     startGame();
                 }
                 p2state = "scissor";
+
                 checkWinning();
             }
         };
@@ -147,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                     startGame();
                 }
                 p1state = "rock";
+
                 checkWinning();
             }
         };
@@ -167,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
                     startGame();
                 }
                 p1state = "paper";
+
+
                 checkWinning();
             }
         };
@@ -187,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     startGame();
                 }
                 p1state = "scissor";
+
                 checkWinning();
             }
         };
@@ -204,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame() {
         gameStart = true;
-        new CountDownTimer(30000, 1) {
+        new CountDownTimer(60000, 1) {
 
             public void onTick(long millisUntilFinished) {
                 timer.setText(String.valueOf(millisUntilFinished / 1000));
@@ -229,21 +256,21 @@ public class MainActivity extends AppCompatActivity {
         p2rockButton.setClickable(false);
         p2paperButton.setClickable(false);
         p2scissorButton.setClickable(false);
-        if(p1score.getText().toString().equals("")){
-            p1scorenum = 0;
-        }else{
-            p1scorenum = Integer.parseInt(p1score.getText().toString());
+        try {
+            t.pause();
+        }catch(Exception e){
+
         }
-        p1score.setText(p1scorenum + count + "" );
     }
 
     public void checkWinning() {
+        System.out.println("p1: " + p1state + " p2: " + p2state);
         String condition = "TIED";
         if (p1state.equals(p2state)) {
             condition = "TIED";
-        } else if ((p1state.equals("rock") && p2state.equals("paper")) || (p1state.equals("paper") && p2state.equals("scissors")) || (p1state.equals("scissors") && p2state.equals("rock")) || p1state.equals("shoot")) {
+        } else if ((p1state.equals("rock") && p2state.equals("paper")) || (p1state.equals("paper") && p2state.equals("scissor")) || (p1state.equals("scissor") && p2state.equals("rock")) || p1state.equals("shoot")) {
             condition = "LOSS";
-        } else if ((p1state.equals("paper") && p2state.equals("rock")) || (p1state.equals("rock") && p2state.equals("scissors")) || (p1state.equals("scissors") && p2state.equals("paper")) || p2state.equals("shoot")) {
+        } else if ((p1state.equals("paper") && p2state.equals("rock")) || (p1state.equals("rock") && p2state.equals("scissor")) || (p1state.equals("scissor") && p2state.equals("paper")) || p2state.equals("shoot")) {
             condition = "WIN";
         }
         System.out.println(condition);
@@ -255,29 +282,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (condition.equals("WIN")) {
             count = 0;
-            int delay = 1000; //
-            int period = 2000; // repeat every sec.
-            if(p1score.getText().toString().equals("")){
-                p1scorenum = 0;
-            }else{
-                p1scorenum = Integer.parseInt(p1score.getText().toString());
+            t.start();
+        }else{
+            try {
+                t.pause();
+            }catch(Exception e){
+
             }
-
-            Timer timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-
-                public void run() {
-                    // Your code
-
-                    count++;
-                    System.out.println("count " + count );
-
-                    p1score.setText(p1scorenum + count + "" );
-
-
-                }
-            }, delay, period);
-
         }
     }
 
