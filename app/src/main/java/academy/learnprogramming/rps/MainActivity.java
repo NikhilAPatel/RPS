@@ -1,7 +1,6 @@
 package academy.learnprogramming.rps;
 
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,18 +9,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class MainActivity extends AppCompatActivity {
 
     //TODO add sound
-    //TODO add way to keep score
     //TODO add intro screen
     //TODO add actual way to start game
-    //TODO fix all the timer bugs(basically make it work)
     //TODO add way for users to know who is winning
     //TODO find a way to get rid of title bar
+    //TODO fix all of the yellows
+    //TODO fix encapsulation
+    //TODO create a constants.java in order keep track of game length etc.
+    //TODO make score default 0
+    //TODO make score 0 when game starts
+    //TODO make score easier to read
+    //TODO implement ads
 
 
     private ImageButton p1paperButton;
@@ -39,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView p1score;
     private TextView p2score;
     private int millis = 0;
-    public int count = 0;
+    public int count1 = 0;
+    public int count2 = 0;
     public int p1scorenum;
-    CountDownTimerPausable t = new  CountDownTimerPausable(60000, 1) {
+    public int p2scorenum;
+    CountDownTimerPausable t1 = new  CountDownTimerPausable(60000, 1) {
 
         public void onTick(long millisUntilFinished) {
             if(p1score.getText().toString().equals("")){
@@ -50,8 +53,27 @@ public class MainActivity extends AppCompatActivity {
                 p1scorenum = Integer.parseInt(p1score.getText().toString());
             }
 
-            count = (60- (int) millisRemaining/1000);
-            p1score.setText(count + "" );
+            count1 = (60- (int) millisRemaining/1000);
+            p1score.setText(count1 + "" );
+
+        }
+
+        public void onFinish() {
+            timer.setText("Game Done");
+            endGame();
+        }
+    };
+    CountDownTimerPausable t2 = new  CountDownTimerPausable(60000, 1) {
+
+        public void onTick(long millisUntilFinished) {
+            if(p2score.getText().toString().equals("")){
+                p2scorenum = 0;
+            }else {
+                p2scorenum = Integer.parseInt(p2score.getText().toString());
+            }
+
+            count2 = (60- (int) millisRemaining/1000);
+            p2score.setText(count2 + "" );
 
         }
 
@@ -257,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
         p2paperButton.setClickable(false);
         p2scissorButton.setClickable(false);
         try {
-            t.pause();
+            t1.pause();
         }catch(Exception e){
 
         }
@@ -281,14 +303,20 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (condition.equals("WIN")) {
-            count = 0;
-            t.start();
+            count1 = 0;
+            t1.start();
         }else{
             try {
-                t.pause();
-            }catch(Exception e){
-
-            }
+                t1.pause();
+            }catch(Exception e){}
+        }
+        if(condition.equals("LOSS")){
+            count2 = 0;
+            t2.start();
+        }else{
+            try{
+                t2.pause();
+            }catch(Exception e){}
         }
     }
 
