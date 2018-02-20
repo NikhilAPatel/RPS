@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         //Remove notification bar
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.game_activity);
 
         p1paperButton = (ImageButton) findViewById(R.id.p1paperButton);
         p1rockButton = (ImageButton) findViewById(R.id.p1rockButton);
