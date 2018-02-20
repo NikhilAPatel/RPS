@@ -287,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkWinning() {
-        System.out.println("p1: " + p1state + " p2: " + p2state);
         String condition = "TIED";
         if (p1state.equals(p2state)) {
             condition = "TIED";
@@ -296,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
         } else if ((p1state.equals("paper") && p2state.equals("rock")) || (p1state.equals("rock") && p2state.equals("scissor")) || (p1state.equals("scissor") && p2state.equals("paper")) || p2state.equals("shoot")) {
             condition = "WIN";
         }
-        System.out.println(condition);
         updateTimers(condition);
     }
 
