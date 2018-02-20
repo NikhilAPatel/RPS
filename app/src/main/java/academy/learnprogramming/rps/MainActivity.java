@@ -45,17 +45,17 @@ public class MainActivity extends AppCompatActivity {
     public int count2 = 0;
     public int p1scorenum;
     public int p2scorenum;
-    CountDownTimerPausable t1 = new  CountDownTimerPausable(60000, 1) {
+    CountDownTimerPausable t1 = new CountDownTimerPausable(60000, 1) {
 
         public void onTick(long millisUntilFinished) {
-            if(p1score.getText().toString().equals("")){
+            if (p1score.getText().toString().equals("")) {
                 p1scorenum = 0;
-            }else {
+            } else {
                 p1scorenum = Integer.parseInt(p1score.getText().toString());
             }
 
-            count1 = (60- (int) millisRemaining/1000);
-            p1score.setText(count1 + "" );
+            count1 = (60 - (int) millisRemaining / 1000);
+            p1score.setText(count1 + "");
 
         }
 
@@ -64,17 +64,17 @@ public class MainActivity extends AppCompatActivity {
             endGame();
         }
     };
-    CountDownTimerPausable t2 = new  CountDownTimerPausable(60000, 1) {
+    CountDownTimerPausable t2 = new CountDownTimerPausable(60000, 1) {
 
         public void onTick(long millisUntilFinished) {
-            if(p2score.getText().toString().equals("")){
+            if (p2score.getText().toString().equals("")) {
                 p2scorenum = 0;
-            }else {
+            } else {
                 p2scorenum = Integer.parseInt(p2score.getText().toString());
             }
 
-            count2 = (60- (int) millisRemaining/1000);
-            p2score.setText(count2 + "" );
+            count2 = (60 - (int) millisRemaining / 1000);
+            p2score.setText(count2 + "");
 
         }
 
@@ -83,20 +83,14 @@ public class MainActivity extends AppCompatActivity {
             endGame();
         }
     };
-
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //removes notification bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
-        //Remove notification bar
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
@@ -285,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             t1.pause();
             t2.pause();
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -308,18 +302,20 @@ public class MainActivity extends AppCompatActivity {
         if (condition.equals("WIN")) {
             count1 = 0;
             t1.start();
-        }else{
+        } else {
             try {
                 t1.pause();
-            }catch(Exception e){}
+            } catch (Exception e) {
+            }
         }
-        if(condition.equals("LOSS")){
+        if (condition.equals("LOSS")) {
             count2 = 0;
             t2.start();
-        }else{
-            try{
+        } else {
+            try {
                 t2.pause();
-            }catch(Exception e){}
+            } catch (Exception e) {
+            }
         }
     }
 
