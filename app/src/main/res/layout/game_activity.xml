@@ -41,7 +41,7 @@
     <TextView
         android:id="@+id/timer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -180,5 +180,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/p2choiceImage"
         app:layout_constraintVertical_bias="0.47" />
+
+    <EditText
+        android:id="@+id/timeInput"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="20"
+        android:textColorLink="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/p1choiceImage"
+        app:layout_constraintEnd_toEndOf="@+id/timer"
+        app:layout_constraintTop_toBottomOf="@+id/p2choiceImage"
+        app:layout_constraintVertical_bias="0.485" />
 
 </android.support.constraint.ConstraintLayout>
