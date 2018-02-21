@@ -143,6 +143,8 @@
         android:fontFamily="cursive"
         android:rotation="180"
         android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textColorLink="@android:color/black"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/p2paperButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,6 +161,8 @@
         android:layout_marginTop="4dp"
         android:fontFamily="cursive"
         android:textAlignment="center"
+        android:textColor="@android:color/holo_red_light"
+        android:textColorLink="@android:color/holo_red_light"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -176,10 +180,10 @@
         android:text="Start Game"
         app:layout_constraintBottom_toTopOf="@+id/p1choiceImage"
         app:layout_constraintEnd_toEndOf="@+id/timer"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/p2choiceImage"
-        app:layout_constraintVertical_bias="0.47" />
+        app:layout_constraintVertical_bias="0.466" />
 
     <EditText
         android:id="@+id/timeInput"
