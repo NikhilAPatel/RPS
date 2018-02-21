@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     //TODO make score 0 when game starts
     //TODO make score easier to read
     //TODO implement ads
+    //TODO gray out buttons on end game
 
 
     private ImageButton p1paperButton;
@@ -43,9 +45,12 @@ public class MainActivity extends AppCompatActivity {
     private int millis = 0;
     public int count1 = 0;
     public int count2 = 0;
+    private static final int matchTime=30000;
+    private static final int scoreCheckTime=1000;
     public int p1scorenum;
     public int p2scorenum;
-    CountDownTimerPausable t1 = new CountDownTimerPausable(60000, 1) {
+    private Button startButton;
+    CountDownTimerPausable t1 = new CountDownTimerPausable(matchTime, 1) {
 
         public void onTick(long millisUntilFinished) {
             if (p1score.getText().toString().equals("")) {
@@ -54,17 +59,17 @@ public class MainActivity extends AppCompatActivity {
                 p1scorenum = Integer.parseInt(p1score.getText().toString());
             }
 
-            count1 = (60 - (int) millisRemaining / 1000);
+            count1 = ((matchTime - (int) millisRemaining) / scoreCheckTime);
             p1score.setText(count1 + "");
 
         }
 
         public void onFinish() {
-            timer.setText("Game Done");
+            //timer.setText("Game Done 1");
             endGame();
         }
     };
-    CountDownTimerPausable t2 = new CountDownTimerPausable(60000, 1) {
+    CountDownTimerPausable t2 = new CountDownTimerPausable(matchTime, 1) {
 
         public void onTick(long millisUntilFinished) {
             if (p2score.getText().toString().equals("")) {
@@ -73,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
                 p2scorenum = Integer.parseInt(p2score.getText().toString());
             }
 
-            count2 = (60 - (int) millisRemaining / 1000);
+            count2 = ((matchTime - (int) millisRemaining) / scoreCheckTime);
             p2score.setText(count2 + "");
 
         }
 
         public void onFinish() {
-            timer.setText("Game Done");
+            //timer.setText("Game Done 2");
             endGame();
         }
     };
@@ -107,6 +112,15 @@ public class MainActivity extends AppCompatActivity {
         p2score = (TextView) findViewById(R.id.p2score);
 
         timer = (TextView) findViewById(R.id.timer);
+        timer = (TextView) findViewById(R.id.timer);
+        startButton = (Button) findViewById(R.id.startButton);
+
+        View.OnClickListener startButtonOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                screenUpdate().start();
+            }
+        };
 
         View.OnClickListener rock2OnClickListener = new View.OnClickListener() {
             @Override
@@ -120,10 +134,11 @@ public class MainActivity extends AppCompatActivity {
 
                 p2paperButton.setImageResource(R.drawable.paper);
                 p2paperButton.setClickable(true);
-
+/*
                 if (!gameStart) {
                     startGame();
                 }
+                */
                 p2state = "rock";
 
                 checkWinning();
@@ -141,10 +156,11 @@ public class MainActivity extends AppCompatActivity {
 
                 p2scissorButton.setImageResource(R.drawable.scissors);
                 p2scissorButton.setClickable(true);
-
+/*
                 if (!gameStart) {
                     startGame();
                 }
+                */
                 p2state = "paper";
 
                 checkWinning();
@@ -162,10 +178,11 @@ public class MainActivity extends AppCompatActivity {
 
                 p2rockButton.setImageResource(R.drawable.rock);
                 p2rockButton.setClickable(true);
-
+/*
                 if (!gameStart) {
                     startGame();
                 }
+                */
                 p2state = "scissor";
 
                 checkWinning();
@@ -185,10 +202,11 @@ public class MainActivity extends AppCompatActivity {
 
                 p1paperButton.setImageResource(R.drawable.paper);
                 p1paperButton.setClickable(true);
-
+/*
                 if (!gameStart) {
                     startGame();
                 }
+                */
                 p1state = "rock";
 
                 checkWinning();
@@ -206,10 +224,11 @@ public class MainActivity extends AppCompatActivity {
 
                 p1scissorButton.setImageResource(R.drawable.scissors);
                 p1scissorButton.setClickable(true);
-
+/*
                 if (!gameStart) {
                     startGame();
                 }
+                */
                 p1state = "paper";
 
 
@@ -228,10 +247,11 @@ public class MainActivity extends AppCompatActivity {
 
                 p1rockButton.setImageResource(R.drawable.rock);
                 p1rockButton.setClickable(true);
-
+/*
                 if (!gameStart) {
                     startGame();
                 }
+                */
                 p1state = "scissor";
 
                 checkWinning();
@@ -246,12 +266,13 @@ public class MainActivity extends AppCompatActivity {
         p1paperButton.setOnClickListener(paper1OnClickListener);
         p1rockButton.setOnClickListener(rock1OnClickListener);
         p1scissorButton.setOnClickListener(scissor1OnClickListener);
+        startButton.setOnClickListener(startButtonOnClickListener);
 
     }
 
     public void startGame() {
         gameStart = true;
-        new CountDownTimer(60000, 1) {
+        new CountDownTimer(matchTime, 1) {
 
             public void onTick(long millisUntilFinished) {
                 timer.setText(String.valueOf(millisUntilFinished / 1000));
@@ -259,14 +280,42 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                timer.setText("Game Done");
+
                 endGame();
             }
         }.start();
     }
 
+    public Thread screenUpdate()
+    {
+        Thread updateScreen=new Thread() {
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(100);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(!gameStart){
+                                    startGame();
+                                }
+                            }
+                        });
+
+                    }
+                } catch (InterruptedException e) {
+
+                }
+            }
+        };
+        return updateScreen;
+
+    }
+
+
     //TODO finish endGame method (find out who wins and have options for quit to menu and play again)
     public void endGame() {
+        timer.setText("Game Done");
         int p1scorenum;
 
         p1rockButton.setClickable(false);
@@ -278,10 +327,11 @@ public class MainActivity extends AppCompatActivity {
         p2scissorButton.setClickable(false);
         try {
             t1.pause();
+        } catch (Exception e) {}
+        try{
             t2.pause();
-        } catch (Exception e) {
+        }catch(Exception e){}
 
-        }
     }
 
     public void checkWinning() {
