@@ -1,6 +1,7 @@
 package academy.learnprogramming.rps;
 
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,47 +45,53 @@ public class MainActivity extends AppCompatActivity {
     private boolean gameStart = false;
     private String p1state = "shoot";
     private String p2state = "shoot";
+    public enum card {rock, paper, scissors, shoot};
+    private card p1card=card.shoot;
+    private card p2card=card.shoot;
     private TextView p1score;
     private TextView p2score;
     private int millis = 0;
     public int count1 = 0;
     public int count2 = 0;
-    private static final int matchTime=30000;
-    private static final int scoreCheckTime=1000;
+    private static final int matchTime=15000+100;
+    private static final int scoreCheckTime=100;
     public int p1scorenum;
     public int p2scorenum;
 
 
-    CountDownTimerPausable t1 = new CountDownTimerPausable(matchTime, 1) {
+    CountDownTimerPausable t1 = new CountDownTimerPausable(matchTime, 50) {
 
         public void onTick(long millisUntilFinished) {
+            /*
             if (p1score.getText().toString().equals("")) {
                 p1scorenum = 0;
             } else {
                 p1scorenum = Integer.parseInt(p1score.getText().toString());
             }
+            */
 
             count1 = ((matchTime - (int) millisRemaining) / scoreCheckTime);
-            p1score.setText(count1 + "");
+            p1score.setText(count1);
 
         }
 
         public void onFinish() {
-            //timer.setText("Game Done 1");
             endGame();
         }
     };
-    CountDownTimerPausable t2 = new CountDownTimerPausable(matchTime, 1) {
+    CountDownTimerPausable t2 = new CountDownTimerPausable(matchTime, 50) {
 
         public void onTick(long millisUntilFinished) {
+            /*
             if (p2score.getText().toString().equals("")) {
                 p2scorenum = 0;
             } else {
                 p2scorenum = Integer.parseInt(p2score.getText().toString());
             }
+            */
 
             count2 = ((matchTime - (int) millisRemaining) / scoreCheckTime);
-            p2score.setText(count2 + "");
+            p2score.setText(count2);
 
         }
 
@@ -104,23 +111,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
-        timeInput=(EditText) findViewById(R.id.timeInput);
-
-        p1paperButton = (ImageButton) findViewById(R.id.p1paperButton);
-        p1rockButton = (ImageButton) findViewById(R.id.p1rockButton);
-        p1scissorButton = (ImageButton) findViewById(R.id.p1scissorButton);
-        p1choiceImage = (ImageView) findViewById(R.id.p1choiceImage);
-        p1score = (TextView) findViewById(R.id.p1score);
-
-        p2paperButton = (ImageButton) findViewById(R.id.p2paperButton);
-        p2rockButton = (ImageButton) findViewById(R.id.p2rockButton);
-        p2scissorButton = (ImageButton) findViewById(R.id.p2scissorButton);
-        p2choiceImage = (ImageView) findViewById(R.id.p2choiceImage);
-        p2score = (TextView) findViewById(R.id.p2score);
-
-        timer = (TextView) findViewById(R.id.timer);
-        timer = (TextView) findViewById(R.id.timer);
-        startButton = (Button) findViewById(R.id.startButton);
+// /Miscellaneous
+        timer = findViewById(R.id.timer);
+        startButton = findViewById(R.id.startButton);
+        timeInput=findViewById(R.id.timeInput);
+//Player 1
+        p1paperButton =findViewById(R.id.p1paperButton);
+        p1rockButton = findViewById(R.id.p1rockButton);
+        p1scissorButton = findViewById(R.id.p1scissorButton);
+        p1choiceImage = findViewById(R.id.p1choiceImage);
+        p1score = findViewById(R.id.p1score);
+//Player 2
+        p2paperButton = findViewById(R.id.p2paperButton);
+        p2rockButton = findViewById(R.id.p2rockButton);
+        p2scissorButton = findViewById(R.id.p2scissorButton);
+        p2choiceImage = findViewById(R.id.p2choiceImage);
+        p2score =  findViewById(R.id.p2score);
 
         View.OnClickListener startButtonOnClickListener = new View.OnClickListener() {
             @Override
@@ -132,8 +138,9 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener rock2OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                p2rockButton.setImageResource(R.drawable.rockgrayed);
                 p2choiceImage.setImageResource(R.drawable.rock);
+                /*
+                p2rockButton.setImageResource(R.drawable.rockgrayed);
                 p2rockButton.setClickable(false);
 
                 p2scissorButton.setImageResource(R.drawable.scissors);
@@ -141,21 +148,21 @@ public class MainActivity extends AppCompatActivity {
 
                 p2paperButton.setImageResource(R.drawable.paper);
                 p2paperButton.setClickable(true);
+*/
+                p2state = "rock";
 /*
-                if (!gameStart) {
-                    startGame();
+                if (gameStart) {
+                    checkWinning();
                 }
                 */
-                p2state = "rock";
-
-                checkWinning();
             }
         };
         View.OnClickListener paper2OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                p2paperButton.setImageResource(R.drawable.papergrayed);
                 p2choiceImage.setImageResource(R.drawable.paper);
+                /*
+                p2paperButton.setImageResource(R.drawable.papergrayed);
                 p2paperButton.setClickable(false);
 
                 p2rockButton.setImageResource(R.drawable.rock);
@@ -163,21 +170,22 @@ public class MainActivity extends AppCompatActivity {
 
                 p2scissorButton.setImageResource(R.drawable.scissors);
                 p2scissorButton.setClickable(true);
+                */
+
+                p2state = "paper";
 /*
-                if (!gameStart) {
-                    startGame();
+                if (gameStart) {
+                    checkWinning();
                 }
                 */
-                p2state = "paper";
-
-                checkWinning();
             }
         };
         View.OnClickListener scissor2OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                p2scissorButton.setImageResource(R.drawable.scissorsgrayed);
                 p2choiceImage.setImageResource(R.drawable.scissors);
+                /*
+                p2scissorButton.setImageResource(R.drawable.scissorsgrayed);
                 p2scissorButton.setClickable(false);
 
                 p2paperButton.setImageResource(R.drawable.paper);
@@ -185,14 +193,13 @@ public class MainActivity extends AppCompatActivity {
 
                 p2rockButton.setImageResource(R.drawable.rock);
                 p2rockButton.setClickable(true);
+*/
+                p2state = "scissor";
 /*
-                if (!gameStart) {
-                    startGame();
+                if (gameStart) {
+                    checkWinning();
                 }
                 */
-                p2state = "scissor";
-
-                checkWinning();
             }
         };
 
@@ -200,8 +207,9 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener rock1OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                p1rockButton.setImageResource(R.drawable.rockgrayed);
                 p1choiceImage.setImageResource(R.drawable.rock);
+                /*
+                p1rockButton.setImageResource(R.drawable.rockgrayed);
                 p1rockButton.setClickable(false);
 
                 p1scissorButton.setImageResource(R.drawable.scissors);
@@ -209,21 +217,22 @@ public class MainActivity extends AppCompatActivity {
 
                 p1paperButton.setImageResource(R.drawable.paper);
                 p1paperButton.setClickable(true);
+                */
+
+                p1state = "rock";
 /*
-                if (!gameStart) {
-                    startGame();
+                if (gameStart) {
+                    checkWinning();
                 }
                 */
-                p1state = "rock";
-
-                checkWinning();
             }
         };
         View.OnClickListener paper1OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                p1paperButton.setImageResource(R.drawable.papergrayed);
                 p1choiceImage.setImageResource(R.drawable.paper);
+                /*
+                p1paperButton.setImageResource(R.drawable.papergrayed);
                 p1paperButton.setClickable(false);
 
                 p1rockButton.setImageResource(R.drawable.rock);
@@ -231,22 +240,22 @@ public class MainActivity extends AppCompatActivity {
 
                 p1scissorButton.setImageResource(R.drawable.scissors);
                 p1scissorButton.setClickable(true);
-/*
-                if (!gameStart) {
-                    startGame();
+                */
+
+                p1state = "paper";
+                /*
+                if (gameStart) {
+                    checkWinning();
                 }
                 */
-                p1state = "paper";
-
-
-                checkWinning();
             }
         };
         View.OnClickListener scissor1OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                p1scissorButton.setImageResource(R.drawable.scissorsgrayed);
                 p1choiceImage.setImageResource(R.drawable.scissors);
+                /*
+                p1scissorButton.setImageResource(R.drawable.scissorsgrayed);
                 p1scissorButton.setClickable(false);
 
                 p1paperButton.setImageResource(R.drawable.paper);
@@ -254,14 +263,14 @@ public class MainActivity extends AppCompatActivity {
 
                 p1rockButton.setImageResource(R.drawable.rock);
                 p1rockButton.setClickable(true);
+                */
+
+                p1state = "scissor";
 /*
-                if (!gameStart) {
-                    startGame();
+                if (gameStart) {
+                    checkWinning();
                 }
                 */
-                p1state = "scissor";
-
-                checkWinning();
             }
         };
 
@@ -279,11 +288,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame() {
         gameStart = true;
-        new CountDownTimer(matchTime, 1) {
+        timer.setText("Ready...");
+        timer.setText("Set...");
+        timer.setText("Go!");
+        new CountDownTimer(matchTime, 100) {
 
             public void onTick(long millisUntilFinished) {
                 timer.setText(String.valueOf(millisUntilFinished / 1000));
                 millis = (int) millisUntilFinished / 1000;
+                checkWinning();
             }
 
             public void onFinish() {
@@ -346,9 +359,9 @@ public class MainActivity extends AppCompatActivity {
         if (p1state.equals(p2state)) {
             condition = "TIED";
         } else if ((p1state.equals("rock") && p2state.equals("paper")) || (p1state.equals("paper") && p2state.equals("scissor")) || (p1state.equals("scissor") && p2state.equals("rock")) || p1state.equals("shoot")) {
-            condition = "LOSS";
-        } else if ((p1state.equals("paper") && p2state.equals("rock")) || (p1state.equals("rock") && p2state.equals("scissor")) || (p1state.equals("scissor") && p2state.equals("paper")) || p2state.equals("shoot")) {
-            condition = "WIN";
+            condition = "P1";
+        } else{
+            condition = "P2";
         }
         updateTimers(condition);
     }
@@ -356,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
     public void updateTimers(String condition) {
 
 
-        if (condition.equals("WIN")) {
+        if (condition.equals("P1")) {
             count1 = 0;
             t1.start();
         } else {
@@ -365,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
             }
         }
-        if (condition.equals("LOSS")) {
+        if (condition.equals("P2")) {
             count2 = 0;
             t2.start();
         } else {
