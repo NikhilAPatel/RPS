@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton p2scissorButton;
     private ImageView p1choiceImage;
     private TextView timer;
+    private Button startButton;
+    private EditText timeInput;
+
     private boolean gameStart = false;
     private String p1state = "shoot";
     private String p2state = "shoot";
@@ -49,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int scoreCheckTime=1000;
     public int p1scorenum;
     public int p2scorenum;
-    private Button startButton;
+
+
     CountDownTimerPausable t1 = new CountDownTimerPausable(matchTime, 1) {
 
         public void onTick(long millisUntilFinished) {
@@ -98,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
+
+        timeInput=(EditText) findViewById(R.id.timeInput);
 
         p1paperButton = (ImageButton) findViewById(R.id.p1paperButton);
         p1rockButton = (ImageButton) findViewById(R.id.p1rockButton);
