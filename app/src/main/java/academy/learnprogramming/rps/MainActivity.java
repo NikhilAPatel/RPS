@@ -1,6 +1,7 @@
 package academy.learnprogramming.rps;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
     private card p2card=card.shoot;
     private TextView p1score;
     private TextView p2score;
-    private int millis = 0;
     private int p1scoreValue=0;
     private int p2scoreValue=0;
-    private static final int matchTime=15000+500;
-    private static final int scoreCheckTime=40;
+    private int matchTime=500;
+    private static final int scoreCheckTime=100;
+    public int runCounts=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,38 +220,92 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGame() {
-        gameStart = true;
+        if (!gameStart) {
+            gameStart = true;
+            p1scoreValue = 0;
+            p2scoreValue = 0;
+            p1score.setText(Integer.toString(p1scoreValue));
+            p2score.setText(Integer.toString(p2scoreValue));
 
-        timer.setText("Go!");
-        new CountDownTimer(matchTime, scoreCheckTime) {
+            timer.setText("Go!");
+            int runtime = Integer.parseInt(timeInput.getText().toString()) * 1000;
+            new CountDownTimer(runtime, scoreCheckTime) {
 
-            public void onTick(long millisUntilFinished) {
-                timer.setText(String.valueOf(millisUntilFinished / 1000));
-                millis = (int) millisUntilFinished / 1000;
-                String currentWinner=checkWinning();
+                public void onTick(long millisUntilFinished) {
+                    String currentWinner = getWinner();
+
+                    if (currentWinner.equals("P1")) {
+                        p1scoreValue++;
+                        p1score.setText(Integer.toString(p1scoreValue));
+                        timer.setTextColor(0xFFFF0000);
+                    }
+                    else if (currentWinner.equals("P2")) {
+                        p2scoreValue++;
+                        p2score.setText(Integer.toString(p2scoreValue));
+                        timer.setTextColor(0xFF0000FF);
+                    }
+                    else
+                    {
+                        timer.setTextColor(0xFF000000);
+                    }
+
+                    timer.setText(String.valueOf(millisUntilFinished / 1000));
+                }
+
+                public void onFinish() {
+
+                    endGame();
+                }
+            }.start();
+        }
+    }
+    public void startGamewithThread()
+    {
+        gameStart=true;
+
+        //Handler runStarter=new Handler();
+        Timer runTimer=new Timer();
+        TimerTask game= new TimerTask() {
+            @Override
+            public void run() {
+                runCounts++;
+                //timer.setText(Integer.toString(40*runCounts/1000));
+                String currentWinner=getWinner();
 
                 if (currentWinner.equals("P1"))
                 {
                     p1scoreValue++;
-                    p1score.setText(Integer.toString(p1scoreValue));
+                    //p1score.setText(Integer.toString(p1scoreValue));
                 }
-                if (currentWinner.equals("P2"))
-                {
+                if (currentWinner.equals("P2")) {
                     p2scoreValue++;
-                    p2score.setText(Integer.toString(p2scoreValue));
+                    //p2score.setText(Integer.toString(p2scoreValue));
                 }
             }
-            public void onFinish() {
-
-                endGame();
-            }
-        }.start();
+        };
+        runTimer.scheduleAtFixedRate(game, 100,40);
     }
 
     //TODO finish endGame method (find out who wins and have options for quit to menu and play again)
     public void endGame() {
         timer.setText("Game Done");
-
+        gameStart=false;
+        if (p1scoreValue>p2scoreValue)
+        {
+            p1score.setText("Winner: "+p1scoreValue);
+            p2score.setText("Loser: "+p2scoreValue);
+        }
+        else if (p1scoreValue<p2scoreValue)
+        {
+            p2score.setText("Winner: "+p2scoreValue);
+            p1score.setText("Loser: "+p1scoreValue);
+        }
+        else
+        {
+            p2score.setText("Loser: "+p2scoreValue);
+            p1score.setText("Loser: "+p1scoreValue);
+        }
+/*
         p1rockButton.setClickable(false);
         p1paperButton.setClickable(false);
         p1scissorButton.setClickable(false);
@@ -255,9 +313,10 @@ public class MainActivity extends AppCompatActivity {
         p2rockButton.setClickable(false);
         p2paperButton.setClickable(false);
         p2scissorButton.setClickable(false);
+        */
     }
 
-    public String checkWinning() {
+    public String getWinner() {
         String condition;
         if (p1state.equals(p2state)) {
             condition = "TIED";
