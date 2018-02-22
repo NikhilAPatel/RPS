@@ -1,7 +1,6 @@
 package academy.learnprogramming.rps;
 
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private int p1scoreValue=0;
     private int p2scoreValue=0;
     private int matchTime=500;
-    private static final int scoreCheckTime=100;
+    private static final int scoreCheckTime=200;
     public int runCounts=0;
 
     @Override
@@ -85,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
         p2rockButton = findViewById(R.id.p2rockButton);
         p2scissorButton = findViewById(R.id.p2scissorButton);
         p2choiceImage = findViewById(R.id.p2choiceImage);
-        p2score =  findViewById(R.id.p2score);
+        p2score = findViewById(R.id.p2score);
 
         View.OnClickListener startButtonOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGame();
+                startGamewithThread();
             }
         };
 
@@ -261,29 +260,53 @@ public class MainActivity extends AppCompatActivity {
     }
     public void startGamewithThread()
     {
-        gameStart=true;
+        if (!gameStart) {
+            gameStart = true;
+            p1scoreValue = 0;
+            p2scoreValue = 0;
+            p1score.setText(Integer.toString(p1scoreValue));
+            p2score.setText(Integer.toString(p2scoreValue));
+            timer.setText("Go!");
+            Timer runTimer = new Timer();
+            final int runtime = 200+Integer.parseInt(timeInput.getText().toString()) * 1000;
 
-        //Handler runStarter=new Handler();
-        Timer runTimer=new Timer();
-        TimerTask game= new TimerTask() {
-            @Override
-            public void run() {
-                runCounts++;
-                //timer.setText(Integer.toString(40*runCounts/1000));
-                String currentWinner=getWinner();
+            final long startTime = System.currentTimeMillis();
+            TimerTask game=new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            long passedTime=System.currentTimeMillis() - startTime;
+                            if (passedTime> runtime) {
+                                endGame();
+                                cancel();
+                            } else {
+                                String currentWinner = getWinner();
 
-                if (currentWinner.equals("P1"))
-                {
-                    p1scoreValue++;
-                    //p1score.setText(Integer.toString(p1scoreValue));
+                                if (currentWinner.equals("P1")) {
+                                    p1scoreValue++;
+                                    p1score.setText(Integer.toString(p1scoreValue));
+                                    timer.setTextColor(0xFFFF0000);
+                                }
+                                else if (currentWinner.equals("P2")) {
+                                    p2scoreValue++;
+                                    p2score.setText(Integer.toString(p2scoreValue));
+                                    timer.setTextColor(0xFF0000FF);
+                                }
+                                else
+                                {
+                                    timer.setTextColor(0xFF000000);
+                                }
+
+                                timer.setText(String.valueOf((runtime-passedTime)/1000));
+                            }
+                        }
+                    });
                 }
-                if (currentWinner.equals("P2")) {
-                    p2scoreValue++;
-                    //p2score.setText(Integer.toString(p2scoreValue));
-                }
-            }
-        };
-        runTimer.scheduleAtFixedRate(game, 100,40);
+            };
+            runTimer.scheduleAtFixedRate(game, 500, scoreCheckTime);
+        }
     }
 
     //TODO finish endGame method (find out who wins and have options for quit to menu and play again)
