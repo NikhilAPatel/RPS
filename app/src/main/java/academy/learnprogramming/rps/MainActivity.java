@@ -14,6 +14,8 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.view.View.INVISIBLE;
+
 public class MainActivity extends AppCompatActivity {
 
     //TODO add sound
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener startButtonOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGamewithThread();
+                startGameWithThread();
             }
         };
 
@@ -226,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
             p1score.setText(Integer.toString(p1scoreValue));
             p2score.setText(Integer.toString(p2scoreValue));
 
+
             timer.setText("Go!");
             int runtime = Integer.parseInt(timeInput.getText().toString()) * 1000;
             new CountDownTimer(runtime, scoreCheckTime) {
@@ -258,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
             }.start();
         }
     }
-    public void startGamewithThread()
+    public void startGameWithThread()
     {
         if (!gameStart) {
             gameStart = true;
@@ -267,6 +270,8 @@ public class MainActivity extends AppCompatActivity {
             p1score.setText(Integer.toString(p1scoreValue));
             p2score.setText(Integer.toString(p2scoreValue));
             timer.setText("Go!");
+            startButton.setVisibility(INVISIBLE); //makes the start button disappear when the game starts but later this could be changed to make the button function as a pause button
+            timeInput.setVisibility(INVISIBLE);
             Timer runTimer = new Timer();
             final int runtime = 200+Integer.parseInt(timeInput.getText().toString()) * 1000;
 
@@ -312,6 +317,8 @@ public class MainActivity extends AppCompatActivity {
     //TODO finish endGame method (find out who wins and have options for quit to menu and play again)
     public void endGame() {
         timer.setText("Game Done");
+        startButton.setVisibility(View.VISIBLE);
+        timeInput.setVisibility(View.VISIBLE);
         gameStart=false;
         if (p1scoreValue>p2scoreValue)
         {
