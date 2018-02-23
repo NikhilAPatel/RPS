@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="academy.learnprogramming.rps.MainActivity">
+    tools:context="academy.learnprogramming.rps.Game">
 
 
     <ImageButton
@@ -27,25 +27,25 @@
         android:id="@+id/p2choiceImage"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/timer"
+        app:layout_constraintBottom_toTopOf="@+id/p2timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/p2paperButton"
         app:srcCompat="@drawable/shoot" />
 
     <TextView
-        android:id="@+id/timer"
+        android:id="@+id/p1timer"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="44dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="cursive"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -53,8 +53,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintTop_toTopOf="@+id/p2score"
+        app:layout_constraintVertical_bias="0.553" />
 
     <ImageView
         android:id="@+id/p1choiceImage"
@@ -63,14 +63,14 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:rotation="180"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/p1paperButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer"
+        app:layout_constraintTop_toBottomOf="@+id/p1timer"
         app:srcCompat="@drawable/shoot" />
 
     <ImageButton
@@ -179,8 +179,8 @@
         android:layout_marginTop="8dp"
         android:text="Start Game"
         app:layout_constraintBottom_toTopOf="@+id/p1choiceImage"
-        app:layout_constraintEnd_toEndOf="@+id/timer"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/p1timer"
+        app:layout_constraintHorizontal_bias="0.032"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/p2choiceImage"
         app:layout_constraintVertical_bias="0.466" />
@@ -193,9 +193,40 @@
         android:inputType="number"
         android:text="30"
         android:textColorLink="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/p1choiceImage"
-        app:layout_constraintEnd_toEndOf="@+id/timer"
-        app:layout_constraintTop_toBottomOf="@+id/p2choiceImage"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/startButton"
+        app:layout_constraintEnd_toEndOf="@+id/p1timer" />
+
+    <Button
+        android:id="@+id/quitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Quit"
+        app:layout_constraintBottom_toBottomOf="@+id/p1choiceImage"
+        app:layout_constraintEnd_toEndOf="@+id/startButton"
+        app:layout_constraintStart_toStartOf="@+id/startButton"
+        app:layout_constraintTop_toTopOf="@+id/p1choiceImage" />
+
+    <TextView
+        android:id="@+id/p2timer"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="cursive"
+        android:rotation="180"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/p1score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p2score"
+        app:layout_constraintVertical_bias="0.455" />
 
 </android.support.constraint.ConstraintLayout>

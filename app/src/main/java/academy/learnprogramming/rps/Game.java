@@ -1,5 +1,6 @@
 package academy.learnprogramming.rps;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +16,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
-public class MainActivity extends AppCompatActivity {
+public class Game extends AppCompatActivity {
 
     //TODO add sound
     //TODO add intro screen
@@ -41,23 +43,27 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton p2rockButton;
     private ImageButton p2scissorButton;
     private ImageView p1choiceImage;
-    private TextView timer;
+    private TextView p1timer;
+    private TextView p2timer;
     private Button startButton;
     private EditText timeInput;
+    private Button quitButton;
 
     private boolean gameStart = false;
     private String p1state = "shoot";
     private String p2state = "shoot";
-    public enum card {rock, paper, scissors, shoot};
-    private card p1card=card.shoot;
-    private card p2card=card.shoot;
+
+    public enum card {rock, paper, scissors, shoot}
+
+    private card p1card = card.shoot;
+    private card p2card = card.shoot;
     private TextView p1score;
     private TextView p2score;
-    private int p1scoreValue=0;
-    private int p2scoreValue=0;
-    private int matchTime=500;
-    private static final int scoreCheckTime=200;
-    public int runCounts=0;
+    private int p1scoreValue = 0;
+    private int p2scoreValue = 0;
+    private int matchTime = 500;
+    private static final int scoreCheckTime = 200;
+    public int runCounts = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Miscellaneous
-        timer = findViewById(R.id.timer);
+        p1timer = findViewById(R.id.p1timer);
+        p2timer = findViewById(R.id.p2timer);
         startButton = findViewById(R.id.startButton);
-        timeInput=findViewById(R.id.timeInput);
+        timeInput = findViewById(R.id.timeInput);
+        quitButton = findViewById(R.id.quitButton);
 
         //Player 1 Controls
-        p1paperButton =findViewById(R.id.p1paperButton);
+        p1paperButton = findViewById(R.id.p1paperButton);
         p1rockButton = findViewById(R.id.p1rockButton);
         p1scissorButton = findViewById(R.id.p1scissorButton);
         p1choiceImage = findViewById(R.id.p1choiceImage);
@@ -87,6 +95,15 @@ public class MainActivity extends AppCompatActivity {
         p2scissorButton = findViewById(R.id.p2scissorButton);
         p2choiceImage = findViewById(R.id.p2choiceImage);
         p2score = findViewById(R.id.p2score);
+
+
+        View.OnClickListener quitButtonOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(Game.this, Menu.class);
+                startActivity(myIntent);
+            }
+        };
 
         View.OnClickListener startButtonOnClickListener = new View.OnClickListener() {
             @Override
@@ -216,20 +233,25 @@ public class MainActivity extends AppCompatActivity {
         p1paperButton.setOnClickListener(paper1OnClickListener);
         p1rockButton.setOnClickListener(rock1OnClickListener);
         p1scissorButton.setOnClickListener(scissor1OnClickListener);
+
         startButton.setOnClickListener(startButtonOnClickListener);
+        quitButton.setOnClickListener(quitButtonOnClickListener);
 
     }
 
+    /*
     public void startGame() {
+
         if (!gameStart) {
             gameStart = true;
             p1scoreValue = 0;
             p2scoreValue = 0;
-            p1score.setText(Integer.toString(p1scoreValue));
-            p2score.setText(Integer.toString(p2scoreValue));
+            p1score.setText(Integer.toString(p1scoreValue) + " Points");
+            p2score.setText(Integer.toString(p2scoreValue) + " Points");
 
 
-            timer.setText("Go!");
+            p1timer.setText("Go!");
+            p2timer.setText("Go!");
             int runtime = Integer.parseInt(timeInput.getText().toString()) * 1000;
             new CountDownTimer(runtime, scoreCheckTime) {
 
@@ -239,19 +261,20 @@ public class MainActivity extends AppCompatActivity {
                     if (currentWinner.equals("P1")) {
                         p1scoreValue++;
                         p1score.setText(Integer.toString(p1scoreValue));
-                        timer.setTextColor(0xFFFF0000);
-                    }
-                    else if (currentWinner.equals("P2")) {
+                        p1timer.setTextColor(0xFFFF0000);
+                        p2timer.setTextColor(0xFFFF0000);
+                    } else if (currentWinner.equals("P2")) {
                         p2scoreValue++;
                         p2score.setText(Integer.toString(p2scoreValue));
-                        timer.setTextColor(0xFF0000FF);
-                    }
-                    else
-                    {
-                        timer.setTextColor(0xFF000000);
+                        p1timer.setTextColor(0xFF0000FF);
+                        p2timer.setTextColor(0xFF0000FF);
+                    } else {
+                        p1timer.setTextColor(0xFF000000);
+                        p2timer.setTextColor(0xFF000000);
                     }
 
-                    timer.setText(String.valueOf(millisUntilFinished / 1000));
+                    p1timer.setText(String.valueOf(millisUntilFinished / 1000));
+                    p2timer.setText(String.valueOf(millisUntilFinished / 1000));
                 }
 
                 public void onFinish() {
@@ -261,29 +284,40 @@ public class MainActivity extends AppCompatActivity {
             }.start();
         }
     }
-    public void startGameWithThread()
-    {
+    */
+
+    public void startGameWithThread() {
         if (!gameStart) {
+            p1rockButton.setClickable(true);
+            p1paperButton.setClickable(true);
+            p1scissorButton.setClickable(true);
+
+            p2rockButton.setClickable(true);
+            p2paperButton.setClickable(true);
+            p2scissorButton.setClickable(true);
+
             gameStart = true;
             p1scoreValue = 0;
             p2scoreValue = 0;
-            p1score.setText(Integer.toString(p1scoreValue));
-            p2score.setText(Integer.toString(p2scoreValue));
-            timer.setText("Go!");
+            p1score.setText(Integer.toString(p1scoreValue) + " Points");
+            p2score.setText(Integer.toString(p2scoreValue) + " Points");
+            p1timer.setText("Go!");
+            p2timer.setText("Go!");
             startButton.setVisibility(INVISIBLE); //makes the start button disappear when the game starts but later this could be changed to make the button function as a pause button
             timeInput.setVisibility(INVISIBLE);
+            quitButton.setVisibility(INVISIBLE);
             Timer runTimer = new Timer();
-            final int runtime = 200+Integer.parseInt(timeInput.getText().toString()) * 1000;
+            final int runtime = 200 + Integer.parseInt(timeInput.getText().toString()) * 1000;
 
             final long startTime = System.currentTimeMillis();
-            TimerTask game=new TimerTask() {
+            TimerTask game = new TimerTask() {
                 @Override
                 public void run() {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            long passedTime=System.currentTimeMillis() - startTime;
-                            if (passedTime> runtime) {
+                            long passedTime = System.currentTimeMillis() - startTime;
+                            if (passedTime > runtime) {
                                 endGame();
                                 cancel();
                             } else {
@@ -291,20 +325,29 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (currentWinner.equals("P1")) {
                                     p1scoreValue++;
-                                    p1score.setText(Integer.toString(p1scoreValue));
-                                    timer.setTextColor(0xFFFF0000);
-                                }
-                                else if (currentWinner.equals("P2")) {
+                                    if (p1scoreValue == 1) {
+                                        p1score.setText(Integer.toString(p1scoreValue) + " Point");
+                                    } else {
+                                        p1score.setText(Integer.toString(p1scoreValue) + " Points");
+                                    }
+                                    p1timer.setTextColor(0xFFFF0000);
+                                    p2timer.setTextColor(0xFFFF0000);
+                                } else if (currentWinner.equals("P2")) {
                                     p2scoreValue++;
-                                    p2score.setText(Integer.toString(p2scoreValue));
-                                    timer.setTextColor(0xFF0000FF);
-                                }
-                                else
-                                {
-                                    timer.setTextColor(0xFF000000);
+                                    if (p2scoreValue == 1) {
+                                        p2score.setText(Integer.toString(p2scoreValue) + " Point");
+                                    } else {
+                                        p2score.setText(Integer.toString(p2scoreValue) + " Points");
+                                    }
+                                    p1timer.setTextColor(0xFF0000FF);
+                                    p2timer.setTextColor(0xFF0000FF);
+                                } else {
+                                    p1timer.setTextColor(0xFF000000);
+                                    p2timer.setTextColor(0xFF000000);
                                 }
 
-                                timer.setText(String.valueOf((runtime-passedTime)/1000));
+                                p1timer.setText(String.valueOf((runtime - passedTime) / 1000));
+                                p2timer.setText(String.valueOf((runtime - passedTime) / 1000));
                             }
                         }
                     });
@@ -316,26 +359,24 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO finish endGame method (find out who wins and have options for quit to menu and play again)
     public void endGame() {
-        timer.setText("Game Done");
-        startButton.setVisibility(View.VISIBLE);
-        timeInput.setVisibility(View.VISIBLE);
-        gameStart=false;
-        if (p1scoreValue>p2scoreValue)
-        {
-            p1score.setText("Winner: "+p1scoreValue);
-            p2score.setText("Loser: "+p2scoreValue);
+        p1timer.setText("Game Done");
+        p2timer.setText("Game Done");
+        startButton.setVisibility(VISIBLE);
+        timeInput.setVisibility(VISIBLE);
+        quitButton.setVisibility(VISIBLE);
+
+        gameStart = false;
+        if (p1scoreValue > p2scoreValue) {
+            p1score.setText("Winner: " + p1scoreValue);
+            p2score.setText("Loser: " + p2scoreValue);
+        } else if (p1scoreValue < p2scoreValue) {
+            p2score.setText("Winner: " + p2scoreValue);
+            p1score.setText("Loser: " + p1scoreValue);
+        } else {
+            p2score.setText("Loser: " + p2scoreValue);
+            p1score.setText("Loser: " + p1scoreValue);
         }
-        else if (p1scoreValue<p2scoreValue)
-        {
-            p2score.setText("Winner: "+p2scoreValue);
-            p1score.setText("Loser: "+p1scoreValue);
-        }
-        else
-        {
-            p2score.setText("Loser: "+p2scoreValue);
-            p1score.setText("Loser: "+p1scoreValue);
-        }
-/*
+
         p1rockButton.setClickable(false);
         p1paperButton.setClickable(false);
         p1scissorButton.setClickable(false);
@@ -343,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
         p2rockButton.setClickable(false);
         p2paperButton.setClickable(false);
         p2scissorButton.setClickable(false);
-        */
+
     }
 
     public String getWinner() {
@@ -352,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
             condition = "TIED";
         } else if ((p1state.equals("rock") && p2state.equals("paper")) || (p1state.equals("paper") && p2state.equals("scissor")) || (p1state.equals("scissor") && p2state.equals("rock")) || p1state.equals("shoot")) {
             condition = "P2";
-        } else{
+        } else {
             condition = "P1";
         }
         return condition;
