@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class Menu extends AppCompatActivity {
     Button launchButton;
+    Button optionsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class Menu extends AppCompatActivity {
 
 
         launchButton = (Button) findViewById(R.id.launchButton);
+        optionsButton = (Button) findViewById(R.id.optionsButton);
 
         View.OnClickListener launchButtonOnClickListener = new View.OnClickListener() {
             @Override
@@ -29,7 +31,16 @@ public class Menu extends AppCompatActivity {
             }
         };
 
+        View.OnClickListener optionsButtonOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(Menu.this, Options.class);
+                startActivity(myIntent);
+            }
+        };
+
         launchButton.setOnClickListener(launchButtonOnClickListener);
+        optionsButton.setOnClickListener(optionsButtonOnClickListener);
     }
 
 }

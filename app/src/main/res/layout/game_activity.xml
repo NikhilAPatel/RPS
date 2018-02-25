@@ -48,6 +48,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="cursive"
         android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -185,17 +186,6 @@
         app:layout_constraintTop_toBottomOf="@+id/p2choiceImage"
         app:layout_constraintVertical_bias="0.466" />
 
-    <EditText
-        android:id="@+id/timeInput"
-        android:layout_width="32dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:text="30"
-        android:textColorLink="@android:color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/startButton"
-        app:layout_constraintEnd_toEndOf="@+id/p1timer" />
-
     <Button
         android:id="@+id/quitButton"
         android:layout_width="wrap_content"
@@ -221,6 +211,7 @@
         android:fontFamily="cursive"
         android:rotation="180"
         android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/p1score"
         app:layout_constraintEnd_toEndOf="parent"
@@ -228,5 +219,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/p2score"
         app:layout_constraintVertical_bias="0.455" />
+
+    <Button
+        android:id="@+id/optionsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Options"
+        app:layout_constraintBottom_toTopOf="@+id/p1choiceImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2choiceImage"
+        app:layout_constraintVertical_bias="0.484" />
 
 </android.support.constraint.ConstraintLayout>
