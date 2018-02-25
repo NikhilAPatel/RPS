@@ -1,13 +1,11 @@
 package academy.learnprogramming.rps;
 
 import android.content.Intent;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,11 +39,11 @@ public class Game extends AppCompatActivity {
     private ImageButton p2rockButton;
     private ImageButton p2scissorButton;
     private ImageView p1choiceImage;
-    private TextView p1timer;
-    private TextView p2timer;
-    private Button startButton;
+//    private TextView p1timer;
+//    private TextView p2timer;
+//    private Button startButton;
     private Button quitButton;
-    private Button optionsButton;
+//    private Button optionsButton;
 
     private boolean gameStart = false;
     private String p1state = "shoot";
@@ -70,15 +68,12 @@ public class Game extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_activity);
+        setContentView(R.layout.act_singleplayer);
 
 
         // Miscellaneous
-        p1timer = findViewById(R.id.p1timer);
-        p2timer = findViewById(R.id.p2timer);
-        startButton = findViewById(R.id.startButton);
+//        p1timer = findViewById(R.id.p1timer);
         quitButton = findViewById(R.id.quitButton);
-        optionsButton = findViewById(R.id.optionsButton);
 
         //Player 1 Controls
         p1paperButton = findViewById(R.id.p1paperButton);
@@ -240,9 +235,9 @@ public class Game extends AppCompatActivity {
         p1rockButton.setOnClickListener(rock1OnClickListener);
         p1scissorButton.setOnClickListener(scissor1OnClickListener);
 
-        startButton.setOnClickListener(startButtonOnClickListener);
+//        startButton.setOnClickListener(startButtonOnClickListener);
         quitButton.setOnClickListener(quitButtonOnClickListener);
-        optionsButton.setOnClickListener(optionsButtonOnClickListener);
+//        optionsButton.setOnClickListener(optionsButtonOnClickListener);
 
     }
 
@@ -253,12 +248,12 @@ public class Game extends AppCompatActivity {
             p2scoreValue = 0;
             p1score.setText(Integer.toString(p1scoreValue) + " Points");
             p2score.setText(Integer.toString(p2scoreValue) + " Points");
-            p1timer.setText("Go!");
-            p2timer.setText("Go!");
+//            p1timer.setText("Go!");
+//            p2timer.setText("Go!");
             unGrayButtons();
-            startButton.setVisibility(INVISIBLE); //makes the start button disappear when the game starts but later this could be changed to make the button function as a pause button
+//            startButton.setVisibility(INVISIBLE); //makes the start button disappear when the game starts but later this could be changed to make the button function as a pause button
             quitButton.setVisibility(INVISIBLE);
-            optionsButton.setVisibility(INVISIBLE);
+//            optionsButton.setVisibility(INVISIBLE);
             Timer runTimer = new Timer();
             final int runtime = 200 + (Options.getGameTime() * 1000);
 
@@ -283,8 +278,8 @@ public class Game extends AppCompatActivity {
                                     } else {
                                         p1score.setText(Integer.toString(p1scoreValue) + " Points");
                                     }
-                                    p1timer.setTextColor(0xFFFF0000);
-                                    p2timer.setTextColor(0xFFFF0000);
+//                                    p1timer.setTextColor(0xFFFF0000);
+//                                    p2timer.setTextColor(0xFFFF0000);
                                 } else if (currentWinner.equals("P2")) {
                                     p2scoreValue++;
                                     if (p2scoreValue == 1) {
@@ -292,15 +287,15 @@ public class Game extends AppCompatActivity {
                                     } else {
                                         p2score.setText(Integer.toString(p2scoreValue) + " Points");
                                     }
-                                    p1timer.setTextColor(0xFF0000FF);
-                                    p2timer.setTextColor(0xFF0000FF);
+//                                    p1timer.setTextColor(0xFF0000FF);
+//                                    p2timer.setTextColor(0xFF0000FF);
                                 } else {
-                                    p1timer.setTextColor(0xFF000000);
-                                    p2timer.setTextColor(0xFF000000);
+//                                    p1timer.setTextColor(0xFF000000);
+//                                    p2timer.setTextColor(0xFF000000);
                                 }
 
-                                p1timer.setText(String.valueOf((runtime - passedTime) / 1000));
-                                p2timer.setText(String.valueOf((runtime - passedTime) / 1000));
+//                                p1timer.setText(String.valueOf((runtime - passedTime) / 1000));
+//                                p2timer.setText(String.valueOf((runtime - passedTime) / 1000));
                             }
                         }
                     });
@@ -312,11 +307,11 @@ public class Game extends AppCompatActivity {
 
     public void endGame() {
         grayButtons();
-        p1timer.setText("Game Done");
-        p2timer.setText("Game Done");
-        startButton.setVisibility(VISIBLE);
+//        p1timer.setText("Game Done");
+//        p2timer.setText("Game Done");
+//        startButton.setVisibility(VISIBLE);
         quitButton.setVisibility(VISIBLE);
-        optionsButton.setVisibility(VISIBLE);
+//        optionsButton.setVisibility(VISIBLE);
         p1choiceImage.setImageResource(R.drawable.shoot);
         p2choiceImage.setImageResource(R.drawable.shoot);
 

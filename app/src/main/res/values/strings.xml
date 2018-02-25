@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Real-Time Roshambo</string>
+    <string name="menuLocalSP">Local Singleplayer</string>
+    <string name="menuWiFiMP">Wifi Multiplayer</string>
+    <string name="menuBTMultiplayer">Bluetooth Multiplayer</string>
 </resources>
