@@ -3,4 +3,7 @@
     <string name="menuLocalSP">Local Singleplayer</string>
     <string name="menuWiFiMP">Wifi Multiplayer</string>
     <string name="menuBTMultiplayer">Bluetooth Multiplayer</string>
+    <string name="menuLogoDesc">Real-time rock paper scisors logo</string>
+    <string name="menuMuteDesc">Mute button</string>
+    <string name="menuOptionsDesc">Options button</string>
 </resources>

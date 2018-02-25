@@ -239,6 +239,8 @@ public class Game extends AppCompatActivity {
         quitButton.setOnClickListener(quitButtonOnClickListener);
 //        optionsButton.setOnClickListener(optionsButtonOnClickListener);
 
+        startGameWithThread();
+
     }
 
     public void startGameWithThread() {
