@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class Menu extends AppCompatActivity {
+    GameState gameState = GameState.getInstance();
+
     Button btnLaunchSp, btnLaunchMpWifi, btnLaunchMpBluetooth;
     ImageButton btnMute, btnOptions;
 
@@ -39,11 +41,11 @@ public class Menu extends AppCompatActivity {
         );
 
         btnMute.setOnClickListener((View v) -> {
-                if(GameState.getInstance().isMuted()) {
-                    GameState.getInstance().setMuted(false);
+                if(gameState.isMuted()) {
+                    gameState.setMuted(false);
                     btnMute.setImageResource(R.drawable.ic_mute_off);
                 } else {
-                    GameState.getInstance().setMuted(true);
+                    gameState.setMuted(true);
                     btnMute.setImageResource(R.drawable.ic_mute_on);
                 }
         });

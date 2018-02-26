@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RPS.iml" filepath="$PROJECT_DIR$/RPS.iml" />
-      <module fileurl="file://C:\Users\DEVNULL\Documents\GitHub\RPS\RPS.iml" filepath="C:\Users\DEVNULL\Documents\GitHub\RPS\RPS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\DEVNULL\Documents\GitHub\RPS\app\app.iml" filepath="C:\Users\DEVNULL\Documents\GitHub\RPS\app\app.iml" />
     </modules>
   </component>
 </project>
