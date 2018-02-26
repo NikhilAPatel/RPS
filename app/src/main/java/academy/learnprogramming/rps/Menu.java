@@ -6,41 +6,52 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class Menu extends AppCompatActivity {
-    Button launchButton;
-    Button optionsButton;
+    GameState gameState = GameState.getInstance();
+
+    Button btnLaunchSp, btnLaunchMpWifi, btnLaunchMpBluetooth;
+    ImageButton btnMute, btnOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //removes notification bar
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_activity);
+
+        //Run app in fullscreen
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-        launchButton = (Button) findViewById(R.id.launchButton);
-        optionsButton = (Button) findViewById(R.id.optionsButton);
+        //Load main menu view
+        setContentView(R.layout.act_main_menu);
 
-        View.OnClickListener launchButtonOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(Menu.this, Game.class);
-                startActivity(myIntent);
-            }
-        };
 
-        View.OnClickListener optionsButtonOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(Menu.this, Options.class);
-                startActivity(myIntent);
-            }
-        };
+        //Instanitate buttons
+        btnLaunchSp = findViewById(R.id.menuLocalSingleplayer);
+        btnLaunchMpWifi = findViewById(R.id.menuWifiMultiplayer);
+        btnLaunchMpBluetooth = findViewById(R.id.menuBTMultiplayer);
 
-        launchButton.setOnClickListener(launchButtonOnClickListener);
-        optionsButton.setOnClickListener(optionsButtonOnClickListener);
+        btnMute = findViewById(R.id.menuMute);
+        btnOptions = findViewById(R.id.menuOptions);
+
+
+        //Set button listeners
+        btnLaunchSp.setOnClickListener((View v) ->
+                startActivity(new Intent(getApplicationContext(), Game.class))
+        );
+
+        btnMute.setOnClickListener((View v) -> {
+                if(gameState.isMuted()) {
+                    gameState.setMuted(false);
+                    btnMute.setImageResource(R.drawable.ic_mute_off);
+                } else {
+                    gameState.setMuted(true);
+                    btnMute.setImageResource(R.drawable.ic_mute_on);
+                }
+        });
+        btnOptions.setOnClickListener((View v) ->
+                startActivity(new Intent(getApplicationContext(), Options.class))
+        );
     }
 
 }

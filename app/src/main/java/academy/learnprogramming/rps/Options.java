@@ -19,7 +19,7 @@ public class Options extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.options_activity);
+        setContentView(R.layout.act_options);
 
         backToMenu = findViewById(R.id.backToMenu);
         backToGame = findViewById(R.id.backToGame);
