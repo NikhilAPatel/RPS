@@ -16,6 +16,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
+        android:contentDescription="@string/gameSpBtnP2PaperDesc"
         android:rotation="180"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toStartOf="@+id/p2rockButton"
@@ -30,6 +31,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/gameSpImgP2SelectedDesc"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +45,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/gameSpImgP1SelectedDesc"
         android:rotation="180"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/p1paperButton"
@@ -58,6 +61,7 @@
         android:layout_marginBottom="48dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:contentDescription="@string/gameSpBtnP1PaperDesc"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/p1scissorButton"
@@ -70,6 +74,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
+        android:contentDescription="@string/gameSpBtnP2ScissorsDesc"
         android:rotation="180"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +87,7 @@
         android:layout_height="100dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="48dp"
+        android:contentDescription="@string/gameSpBtnP2RockDesc"
         android:rotation="180"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +100,7 @@
         android:layout_height="100dp"
         android:layout_marginBottom="48dp"
         android:layout_marginStart="16dp"
+        android:contentDescription="@string/gameSpBtnP1RockDesc"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +112,7 @@
         android:layout_height="100dp"
         android:layout_marginBottom="48dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/gameSpBtnP1ScissorsDesc"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +169,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" tools:targetApi="lollipop"/>
 
     <ProgressBar
         android:id="@+id/matchTimer2"
@@ -178,7 +186,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" tools:targetApi="lollipop"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"

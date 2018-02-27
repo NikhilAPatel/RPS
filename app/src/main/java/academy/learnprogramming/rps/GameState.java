@@ -61,22 +61,6 @@ class GameState {
             throw new NullPointerException("Invalid PID supplied, got null!");
     }
 
-    void setPrevCard(int pid, Card selection) {
-        Player p = players.get(pid);
-        if(p != null)
-            p.setPrevCard(selection);
-        else
-            throw new NullPointerException("Invalid PID supplied, got null!");
-    }
-
-    Card getPrevCard(int pid) {
-        Player p = players.get(pid);
-        if(p != null)
-            return p.getPrevCard();
-        else
-            throw new NullPointerException("Invalid PID supplied, got null!");
-    }
-
     /**
      * Gets the resource ID for the drawable associated with the player's current selection
      * @param pid The ID of the player to get the drawable for
@@ -85,7 +69,7 @@ class GameState {
     int getSelectedDrawable(int pid) {
         switch(getSelected(pid)) {
             case INITIAL:
-                return R.drawable.ic_paper;
+                return R.drawable.ic_mute_off;
             case ROCK:
                 return R.drawable.ic_rock;
             case PAPER:
@@ -113,22 +97,6 @@ class GameState {
             throw new NullPointerException("Invalid PID supplied, got null!");
     }
 
-    void setPrevScore(int pid, int amount) {
-        Player p = players.get(pid);
-        if(p != null)
-            p.setPrevScore(amount);
-        else
-            throw new NullPointerException("Invalid PID supplied, got null!");
-    }
-
-    int getPrevScore(int pid) {
-        Player p = players.get(pid);
-        if(p != null)
-            return p.getPrevScore();
-        else
-            throw new NullPointerException("Invalid PID supplied, got null!");
-    }
-
     public int getMatchTime() {
         return (int)(endTime - System.currentTimeMillis());
     }
@@ -147,5 +115,25 @@ class GameState {
 
     public int getMatchLength() {
         return matchLength;
+    }
+
+    void applyScores() {
+        for(Player p1:players) {
+            for(Player p2:players) {
+                if(!p1.equals(p2)) {
+                    switch(p1.getSelection()) {
+                        case ROCK:
+                            if(p2.getSelection() == Card.SCISSORS) p1.addScore(1);
+                            break;
+                        case PAPER:
+                            if(p2.getSelection() == Card.ROCK) p1.addScore(1);
+                            break;
+                        case SCISSORS:
+                            if(p2.getSelection() == Card.PAPER) p1.addScore(1);
+                            break;
+                    }
+                }
+            }
+        }
     }
 }

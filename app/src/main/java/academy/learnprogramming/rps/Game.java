@@ -165,8 +165,7 @@ public class Game extends AppCompatActivity {
         Thread gameThread = new Thread(() -> {
             while(!gameState.isGameOver()) {
                 try {
-//                        gameState.addScore(player1, 1);
-//                        gameState.addScore(player2, 2);
+                    gameState.applyScores();
 
 
                     runOnUiThread(() -> {
@@ -190,41 +189,6 @@ public class Game extends AppCompatActivity {
         }, "Game Thread");
 
         gameThread.start();
-
-//            runOnUiThread(() -> {
-//                  long passedTime = System.currentTimeMillis() - startTime;
-//                  if (passedTime > runtime) {
-//                      endGame();
-//                  } else {
-//                      String currentWinner = getWinner();
-//
-//                      if (currentWinner.equals("P1")) {
-//                          p1scoreValue++;
-//                          if (p1scoreValue == 1) {
-//                              p1score.setText(Integer.toString(p1scoreValue) + " Point");
-//                          } else {
-//                              p1score.setText(Integer.toString(p1scoreValue) + " Points");
-//                          }
-////                                    p1timer.setTextColor(0xFFFF0000);
-////                                    p2timer.setTextColor(0xFFFF0000);
-//                      } else if (currentWinner.equals("P2")) {
-//                          p2scoreValue++;
-//                          if (p2scoreValue == 1) {
-//                              p2score.setText(Integer.toString(p2scoreValue) + " Point");
-//                          } else {
-//                              p2score.setText(Integer.toString(p2scoreValue) + " Points");
-//                          }
-////                                    p1timer.setTextColor(0xFF0000FF);
-////                                    p2timer.setTextColor(0xFF0000FF);
-//                      } else {
-////                                    p1timer.setTextColor(0xFF000000);
-////                                    p2timer.setTextColor(0xFF000000);
-//                      }
-//
-////                                p1timer.setText(String.valueOf((runtime - passedTime) / 1000));
-////                                p2timer.setText(String.valueOf((runtime - passedTime) / 1000));
-//                  }
-//              });
     }
 
     private void initGame() {
