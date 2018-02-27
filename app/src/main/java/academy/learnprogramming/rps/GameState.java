@@ -10,7 +10,6 @@ class GameState {
     }
 
     private boolean muted = false;
-    private boolean gameOver = false;
     private ArrayList<Player> players = new ArrayList<>();
 
     private int matchLength = 30000; // 30 second match time. TODO pull from options
