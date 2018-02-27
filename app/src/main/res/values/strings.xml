@@ -1,9 +1,19 @@
 <resources>
     <string name="app_name">Real-Time Roshambo</string>
+
+    <string name="menuLogoDesc">Real-time rock paper scisors logo</string>
     <string name="menuLocalSP">Local Singleplayer</string>
     <string name="menuWiFiMP">Wifi Multiplayer</string>
     <string name="menuBTMultiplayer">Bluetooth Multiplayer</string>
-    <string name="menuLogoDesc">Real-time rock paper scisors logo</string>
     <string name="menuMuteDesc">Mute button</string>
     <string name="menuOptionsDesc">Options button</string>
+
+    <string name="gameSpBtnP1RockDesc">Player 1 rock button</string>
+    <string name="gameSpBtnP1PaperDesc">Player 1 paper button</string>
+    <string name="gameSpBtnP1ScissorsDesc">Player 1 scissors button</string>
+    <string name="gameSpImgP1SelectedDesc">Player 1\'s selection</string>
+    <string name="gameSpBtnP2RockDesc">Player 2 rock button</string>
+    <string name="gameSpBtnP2PaperDesc">Player 2 paper button</string>
+    <string name="gameSpBtnP2ScissorsDesc">Player 2 scissors button</string>
+    <string name="gameSpImgP2SelectedDesc">Player 2\'s selection</string>
 </resources>

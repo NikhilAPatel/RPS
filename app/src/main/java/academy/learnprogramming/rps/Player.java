@@ -3,9 +3,7 @@ package academy.learnprogramming.rps;
 public class Player {
     String name = "error";
     Card selected = Card.INITIAL;
-    Card previousCard = Card.INITIAL;
     int score = 0;
-    int previousScore = 0;
     //Powerup currentPowerup;
     //Powerup currentPowerdown;
 
@@ -29,27 +27,11 @@ public class Player {
         return selected;
     }
 
-    public void setPrevCard(Card prevCard) {
-        this.previousCard = prevCard;
-    }
-
-    public Card getPrevCard() {
-        return previousCard;
-    }
-
     public void addScore(int amount) {
         this.score += amount;
     }
 
     public int getScore() {
         return score;
-    }
-
-    public void setPrevScore(int prevScore) {
-        this.previousScore = prevScore;
-    }
-
-    public int getPrevScore() {
-        return previousScore;
     }
 }
