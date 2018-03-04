@@ -36,9 +36,9 @@ public class Menu extends AppCompatActivity {
 
 
         //Set button listeners
-        btnLaunchSp.setOnClickListener((View v) ->
-                startActivity(new Intent(getApplicationContext(), Game.class))
-        );
+        btnLaunchSp.setOnClickListener((View v) -> {
+            startActivity(new Intent(getApplicationContext(), Game.class));
+        });
 
         btnMute.setOnClickListener((View v) -> {
                 if(gameState.isMuted()) {

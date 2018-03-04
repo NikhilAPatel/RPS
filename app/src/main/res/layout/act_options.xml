@@ -81,24 +81,4 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/timeInput"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/backToMenu"
-        android:layout_width="69dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Menu"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/backToGame"
-        android:layout_width="69dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Game"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

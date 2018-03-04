@@ -1,9 +1,12 @@
 package academy.learnprogramming.rps;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,7 +20,7 @@ import java.util.Locale;
 //TODO fix encapsulation
 //TODO make score 0 when game starts
 //TODO implement ads
-
+//TODO make default choice image not unmute icon
 public class Game extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
 
@@ -35,6 +38,7 @@ public class Game extends AppCompatActivity {
 
     private TextView p1score, p2score;
     private ProgressBar matchTimer1, matchTimer2;
+    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,17 @@ public class Game extends AppCompatActivity {
         p2choiceImage = findViewById(R.id.p2choiceImage);
         p2score = findViewById(R.id.p2score);
         matchTimer2 = findViewById(R.id.matchTimer2);
+
+        //Miscellaneous
+        startButton = findViewById(R.id.startButton);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startGame();
+            }
+        });
 
 
         p1rockButton.setOnClickListener((View v) -> {
@@ -148,23 +163,31 @@ public class Game extends AppCompatActivity {
             gameState.selectCard(player2, Card.SCISSORS);
         });
 
-        startGame();
 
     }
 
     public void startGame() {
         unGrayButtons();
-
         initGame();
         gameState.startGame();
 
         Thread gameThread = new Thread(() -> {
-            while(!gameState.isGameOver()) {
+            while (!gameState.isGameOver()) {
                 try {
                     gameState.applyScores();
 
 
                     runOnUiThread(() -> {
+                        if(gameState.getWinner() == "P1"){
+                            matchTimer2.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                            matchTimer1.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                        }else if(gameState.getWinner() == "P2"){
+                            matchTimer2.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+                            matchTimer1.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+                        }else{
+                            matchTimer2.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                            matchTimer1.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                        }
                         p1score.setText(String.format(Locale.ENGLISH, "%d Points", gameState.getScore(player1)));
                         p2score.setText(String.format(Locale.ENGLISH, "%d Points", gameState.getScore(player2)));
 
@@ -176,7 +199,7 @@ public class Game extends AppCompatActivity {
                     });
 
                     Thread.sleep(100);
-                } catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -218,19 +241,8 @@ public class Game extends AppCompatActivity {
         });
     }
 
-//    public String getWinner() {
-//        String condition;
-//        if (p1state.equals(p2state)) {
-//            condition = "TIED";
-//        } else if ((p1state.equals("rock") && p2state.equals("paper")) || (p1state.equals("paper") && p2state.equals("scissor")) || (p1state.equals("scissor") && p2state.equals("rock")) || p1state.equals("shoot")) {
-//            condition = "P2";
-//        } else {
-//            condition = "P1";
-//        }
-//        return condition;
-//    }
 
-    public void grayButtons(){
+    public void grayButtons() {
         p1rockButton.setClickable(false);
         p1paperButton.setClickable(false);
         p1scissorButton.setClickable(false);
@@ -239,16 +251,14 @@ public class Game extends AppCompatActivity {
         p2paperButton.setClickable(false);
         p2scissorButton.setClickable(false);
 
-//        p1rockButton.setImageResource(R.drawable.rockgrayed);
-//        p1scissorButton.setImageResource(R.drawable.scissorsgrayed);
-//        p1paperButton.setImageResource(R.drawable.papergrayed);
-//
-//        p2rockButton.setImageResource(R.drawable.rockgrayed);
-//        p2scissorButton.setImageResource(R.drawable.scissorsgrayed);
-//        p2paperButton.setImageResource(R.drawable.papergrayed);
+        matchTimer1.setVisibility(View.INVISIBLE);
+        matchTimer2.setVisibility(View.INVISIBLE);
+
+        startButton.setVisibility(View.VISIBLE);
+
     }
 
-    public void unGrayButtons(){
+    public void unGrayButtons() {
         p1rockButton.setClickable(true);
         p1paperButton.setClickable(true);
         p1scissorButton.setClickable(true);
@@ -257,13 +267,12 @@ public class Game extends AppCompatActivity {
         p2paperButton.setClickable(true);
         p2scissorButton.setClickable(true);
 
-//        p1rockButton.setImageResource(R.drawable.rock);
-//        p1scissorButton.setImageResource(R.drawable.scissors);
-//        p1paperButton.setImageResource(R.drawable.paper);
-//
-//        p2rockButton.setImageResource(R.drawable.rock);
-//        p2scissorButton.setImageResource(R.drawable.scissors);
-//        p2paperButton.setImageResource(R.drawable.paper);
+        matchTimer1.setVisibility(View.VISIBLE);
+        matchTimer2.setVisibility(View.VISIBLE);
+
+        startButton.setVisibility(View.INVISIBLE);
+
+
     }
 
 }

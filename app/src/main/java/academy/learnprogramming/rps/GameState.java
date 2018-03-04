@@ -101,6 +101,7 @@ class GameState {
     }
 
     public void startGame() {
+
         endTime = System.currentTimeMillis() + matchLength;
     }
 
@@ -134,5 +135,20 @@ class GameState {
                 }
             }
         }
+    }
+
+    public String getWinner(){
+        Player p1 = players.get(0);
+        Player p2 = players.get(1);
+
+        String condition;
+        if (p1.getSelection() == p2.getSelection()) {
+            condition = "TIED";
+        } else if ((p1.getSelection() ==Card.ROCK && p2.getSelection() == Card.PAPER) || (p1.getSelection() == Card.PAPER && p2.getSelection() == Card.SCISSORS) || (p1.getSelection() == Card.SCISSORS && p2.getSelection() == Card.ROCK) || p1.getSelection() == Card.INITIAL) {
+            condition = "P2";
+        } else {
+            condition = "P1";
+        }
+        return condition;
     }
 }
