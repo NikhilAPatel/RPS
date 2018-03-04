@@ -137,7 +137,7 @@ class GameState {
         }
     }
 
-    public String getWinner(){
+    public String getWinner(){ //TODO make this with enums
         Player p1 = players.get(0);
         Player p2 = players.get(1);
 
