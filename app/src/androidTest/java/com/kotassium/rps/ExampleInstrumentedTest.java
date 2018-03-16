@@ -1,4 +1,4 @@
-package academy.learnprogramming.rps;
+package com.kotassium.rps;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

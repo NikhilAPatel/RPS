@@ -1,4 +1,4 @@
-package academy.learnprogramming.rps;
+package com.kotassium.rps;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package academy.learnprogramming.rps;
+package com.kotassium.rps;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -21,6 +21,9 @@ import java.util.Locale;
 //TODO make score 0 when game starts
 //TODO implement ads
 //TODO make default choice image not unmute icon
+//TODO fix bug where scissor gives no points when facing nothing
+//TODO fix bug where both players get points when its scissors vs paper
+//TODO reset scores when new game starts
 public class Game extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
 
@@ -86,79 +89,55 @@ public class Game extends AppCompatActivity {
 
 
         p1rockButton.setOnClickListener((View v) -> {
-            p1rockButton.setImageResource(R.drawable.ic_rock);
-            p1rockButton.setClickable(false);
+            grayButton(p1rockButton);
 
-            p1scissorButton.setImageResource(R.drawable.ic_scissors);
-            p1scissorButton.setClickable(true);
-
-            p1paperButton.setImageResource(R.drawable.ic_paper);
-            p1paperButton.setClickable(true);
+            unGrayButton(p1scissorButton);
+            unGrayButton(p1paperButton);
 
             gameState.selectCard(player1, Card.ROCK);
         });
 
         p1paperButton.setOnClickListener((View v) -> {
-            p1paperButton.setImageResource(R.drawable.ic_paper);
-            p1paperButton.setClickable(false);
+            grayButton(p1paperButton);
 
-            p1rockButton.setImageResource(R.drawable.ic_rock);
-            p1rockButton.setClickable(true);
-
-            p1scissorButton.setImageResource(R.drawable.ic_scissors);
-            p1scissorButton.setClickable(true);
+            unGrayButton(p1scissorButton);
+            unGrayButton(p1rockButton);
 
             gameState.selectCard(player1, Card.PAPER);
         });
 
         p1scissorButton.setOnClickListener((View v) -> {
-            p1scissorButton.setImageResource(R.drawable.ic_scissors);
-            p1scissorButton.setClickable(false);
+            grayButton(p1scissorButton);
 
-            p1paperButton.setImageResource(R.drawable.ic_paper);
-            p1paperButton.setClickable(true);
-
-            p1rockButton.setImageResource(R.drawable.ic_rock);
-            p1rockButton.setClickable(true);
+            unGrayButton(p1paperButton);
+            unGrayButton(p1rockButton);
 
             gameState.selectCard(player1, Card.SCISSORS);
         });
 
         p2rockButton.setOnClickListener((View v) -> {
-            p2rockButton.setImageResource(R.drawable.ic_rock);
-            p2rockButton.setClickable(false);
+            grayButton(p2rockButton);
 
-            p2scissorButton.setImageResource(R.drawable.ic_scissors);
-            p2scissorButton.setClickable(true);
-
-            p2paperButton.setImageResource(R.drawable.ic_paper);
-            p2paperButton.setClickable(true);
+            unGrayButton(p2scissorButton);
+            unGrayButton(p2paperButton);
 
             gameState.selectCard(player2, Card.ROCK);
         });
 
         p2paperButton.setOnClickListener((View v) -> {
-            p2paperButton.setImageResource(R.drawable.ic_paper);
-            p2paperButton.setClickable(false);
+            grayButton(p2paperButton);
 
-            p2rockButton.setImageResource(R.drawable.ic_rock);
-            p2rockButton.setClickable(true);
-
-            p2scissorButton.setImageResource(R.drawable.ic_scissors);
-            p2scissorButton.setClickable(true);
+            unGrayButton(p2scissorButton);
+            unGrayButton(p2rockButton);
 
             gameState.selectCard(player2, Card.PAPER);
         });
 
         p2scissorButton.setOnClickListener((View v) -> {
-            p2scissorButton.setImageResource(R.drawable.ic_scissors);
-            p2scissorButton.setClickable(false);
+            grayButton(p2scissorButton);
 
-            p2paperButton.setImageResource(R.drawable.ic_paper);
-            p2paperButton.setClickable(true);
-
-            p2rockButton.setImageResource(R.drawable.ic_rock);
-            p2rockButton.setClickable(true);
+            unGrayButton(p2paperButton);
+            unGrayButton(p2rockButton);
 
             gameState.selectCard(player2, Card.SCISSORS);
         });
@@ -213,7 +192,6 @@ public class Game extends AppCompatActivity {
     private void initGame() {
         runOnUiThread(() -> {
             unGrayButtons();
-
             matchTimer1.setMax(gameState.getMatchLength());
             matchTimer2.setMax(gameState.getMatchLength());
         });
@@ -243,36 +221,44 @@ public class Game extends AppCompatActivity {
 
 
     public void grayButtons() {
-        p1rockButton.setClickable(false);
-        p1paperButton.setClickable(false);
-        p1scissorButton.setClickable(false);
 
-        p2rockButton.setClickable(false);
-        p2paperButton.setClickable(false);
-        p2scissorButton.setClickable(false);
+        grayButton(p1rockButton);
+        grayButton(p1paperButton);
+        grayButton(p1scissorButton);
+
+        grayButton(p2rockButton);
+        grayButton(p2paperButton);
+        grayButton(p2scissorButton);
 
         matchTimer1.setVisibility(View.INVISIBLE);
         matchTimer2.setVisibility(View.INVISIBLE);
 
         startButton.setVisibility(View.VISIBLE);
-
     }
 
     public void unGrayButtons() {
-        p1rockButton.setClickable(true);
-        p1paperButton.setClickable(true);
-        p1scissorButton.setClickable(true);
+        unGrayButton(p1rockButton);
+        unGrayButton(p1paperButton);
+        unGrayButton(p1scissorButton);
 
-        p2rockButton.setClickable(true);
-        p2paperButton.setClickable(true);
-        p2scissorButton.setClickable(true);
+        unGrayButton(p2rockButton);
+        unGrayButton(p2paperButton);
+        unGrayButton(p2scissorButton);
 
         matchTimer1.setVisibility(View.VISIBLE);
         matchTimer2.setVisibility(View.VISIBLE);
 
         startButton.setVisibility(View.INVISIBLE);
+    }
 
+    public void grayButton(ImageButton button){
+        button.setClickable(false);
+        button.setColorFilter(Color.GRAY);
+    }
 
+    public void unGrayButton(ImageButton button){
+        button.setClickable(true);
+        button.setColorFilter(Color.BLACK);
     }
 
 }

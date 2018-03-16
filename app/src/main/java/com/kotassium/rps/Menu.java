@@ -1,4 +1,4 @@
-package academy.learnprogramming.rps;
+package com.kotassium.rps;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

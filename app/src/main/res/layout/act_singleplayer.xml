@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="academy.learnprogramming.rps.Game">
+    tools:context="com.kotassium.rps.Game">
 
 
     <ImageButton
@@ -19,6 +19,7 @@
         android:contentDescription="@string/gameSpBtnP2PaperDesc"
         android:rotation="180"
         android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
         app:layout_constraintEnd_toStartOf="@+id/p2rockButton"
         app:layout_constraintStart_toEndOf="@+id/p2scissorButton"
         app:layout_constraintTop_toTopOf="parent"
@@ -63,6 +64,7 @@
         android:layout_marginStart="16dp"
         android:contentDescription="@string/gameSpBtnP1PaperDesc"
         android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/p1scissorButton"
         app:layout_constraintStart_toEndOf="@+id/p1rockButton"
@@ -77,6 +79,7 @@
         android:contentDescription="@string/gameSpBtnP2ScissorsDesc"
         android:rotation="180"
         android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_scissors" />
@@ -90,6 +93,7 @@
         android:contentDescription="@string/gameSpBtnP2RockDesc"
         android:rotation="180"
         android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_rock" />
@@ -102,6 +106,7 @@
         android:layout_marginStart="16dp"
         android:contentDescription="@string/gameSpBtnP1RockDesc"
         android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_rock" />
@@ -114,6 +119,7 @@
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/gameSpBtnP1ScissorsDesc"
         android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_scissors" />
