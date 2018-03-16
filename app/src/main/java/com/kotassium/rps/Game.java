@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Locale;
+import java.util.Objects;
 
 //TODO add sound
 //TODO finish intro screen
@@ -79,13 +80,7 @@ public class Game extends AppCompatActivity {
         //Miscellaneous
         startButton = findViewById(R.id.startButton);
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startGame();
-            }
-        });
+        startButton.setOnClickListener(v -> startGame());
 
 
         p1rockButton.setOnClickListener((View v) -> {
@@ -157,13 +152,13 @@ public class Game extends AppCompatActivity {
 
 
                     runOnUiThread(() -> {
-                        if(gameState.getWinner() == "P1"){
+                        if (Objects.equals(gameState.getWinner(), "P1")) {
                             matchTimer2.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
                             matchTimer1.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-                        }else if(gameState.getWinner() == "P2"){
+                        } else if (Objects.equals(gameState.getWinner(), "P2")) {
                             matchTimer2.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
                             matchTimer1.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
-                        }else{
+                        } else {
                             matchTimer2.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                             matchTimer1.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                         }
@@ -251,12 +246,12 @@ public class Game extends AppCompatActivity {
         startButton.setVisibility(View.INVISIBLE);
     }
 
-    public void grayButton(ImageButton button){
+    public void grayButton(ImageButton button) {
         button.setClickable(false);
         button.setColorFilter(Color.GRAY);
     }
 
-    public void unGrayButton(ImageButton button){
+    public void unGrayButton(ImageButton button) {
         button.setClickable(true);
         button.setColorFilter(Color.BLACK);
     }
