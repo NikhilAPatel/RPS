@@ -12,7 +12,7 @@ class GameState {
     private boolean muted = false;
     private ArrayList<Player> players = new ArrayList<>();
 
-    private int matchLength = 30000; // 30 second match time. TODO pull from options
+    private int matchLength = 30000;
     private long endTime;
 
     void setMuted(boolean muted) {
@@ -28,9 +28,9 @@ class GameState {
      * @param name The name of the new player
      * @return The player's ID
      */
-    int addPlayer(String name) {
+    int addPlayer(String name, int index) {
         Player newPlayer = new Player(name);
-        players.add(newPlayer);
+        players.add(index, newPlayer);
         return players.indexOf(newPlayer);
     }
 
@@ -68,7 +68,7 @@ class GameState {
     int getSelectedDrawable(int pid) {
         switch(getSelected(pid)) {
             case INITIAL:
-                return R.drawable.ic_mute_off;
+                return R.drawable.ic_initial;
             case ROCK:
                 return R.drawable.ic_rock;
             case PAPER:
@@ -80,13 +80,6 @@ class GameState {
         }
     }
 
-    void addScore(int pid, int amount) {
-        Player p = players.get(pid);
-        if(p != null)
-            p.addScore(amount);
-        else
-            throw new NullPointerException("Invalid PID supplied, got null!");
-    }
 
     int getScore(int pid) {
         Player p = players.get(pid);
@@ -95,6 +88,7 @@ class GameState {
         else
             throw new NullPointerException("Invalid PID supplied, got null!");
     }
+
 
     public int getMatchTime() {
         return (int)(endTime - System.currentTimeMillis());
@@ -117,24 +111,35 @@ class GameState {
         return matchLength;
     }
 
+    public void resetGame(){
+        for(Player p : players){
+            p.score = 0;
+            p.select(Card.INITIAL);
+        }
+    }
+
     void applyScores() {
-        for(Player p1:players) {
-            for(Player p2:players) {
-                if(!p1.equals(p2)) {
-                    switch(p1.getSelection()) {
-                        case ROCK:
-                            if(p2.getSelection() == Card.SCISSORS) p1.addScore(1);
-                            break;
-                        case PAPER:
-                            if(p2.getSelection() == Card.ROCK) p1.addScore(1);
-                            break;
-                        case SCISSORS:
-                            if(p2.getSelection() == Card.PAPER) p1.addScore(1);
-                            break;
-                    }
-                }
+        Player p1 = players.get(0);
+        Player p2 = players.get(1);
+        int amount = 1;
+        if(this.getMatchTime()<this.getMatchLength()/3){
+            amount = 2;
+        }
+
+        if(!(p1.getSelection().equals(p2.getSelection()))){
+            if((p1.getSelection() ==Card.ROCK && p2.getSelection() == Card.PAPER) || (p1.getSelection() == Card.PAPER && p2.getSelection() == Card.SCISSORS) || (p1.getSelection() == Card.SCISSORS && p2.getSelection() == Card.ROCK) || p1.getSelection() == Card.INITIAL) {
+                p2.addScore(amount);
+            } else {
+                p1.addScore(amount);
             }
         }
+    }
+
+    boolean checkIfDoublePoints(){
+        if(this.getMatchTime()<this.getMatchLength()/3){
+            return true;
+        }
+        return false;
     }
 
     public String getWinner(){ //TODO make this with enums

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 import java.util.Objects;
 
@@ -19,12 +21,11 @@ import java.util.Objects;
 //TODO finish intro screen
 //TODO fix all of the yellows
 //TODO fix encapsulation
-//TODO make score 0 when game starts
 //TODO implement ads
-//TODO make default choice image not unmute icon
-//TODO fix bug where scissor gives no points when facing nothing
-//TODO fix bug where both players get points when its scissors vs paper
-//TODO reset scores when new game starts
+//TODO make the buttons unclickable until the game actually starts
+
+
+
 public class Game extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
 
@@ -34,11 +35,15 @@ public class Game extends AppCompatActivity {
     private ImageButton p1rockButton;
     private ImageButton p1scissorButton;
     private ImageView p1choiceImage;
+    private TextView p1double;
+    private TextView p1points;
 
     private ImageButton p2paperButton;
     private ImageButton p2rockButton;
     private ImageButton p2scissorButton;
     private ImageView p2choiceImage;
+    private TextView p2double;
+    private TextView p2points;
 
     private TextView p1score, p2score;
     private ProgressBar matchTimer1, matchTimer2;
@@ -57,8 +62,8 @@ public class Game extends AppCompatActivity {
 
 
         //Instantiate players
-        player1 = gameState.addPlayer("Player 1");
-        player2 = gameState.addPlayer("Player 2");
+        player1 = gameState.addPlayer("Player 1", 0);
+        player2 = gameState.addPlayer("Player 2", 1);
 
 
         //Player 1 Controls
@@ -68,6 +73,8 @@ public class Game extends AppCompatActivity {
         p1choiceImage = findViewById(R.id.p1choiceImage);
         p1score = findViewById(R.id.p1score);
         matchTimer1 = findViewById(R.id.matchTimer1);
+        p1double = findViewById(R.id.p1double);
+        p1points = findViewById(R.id.p1points);
 
         //Player 2 Controls
         p2paperButton = findViewById(R.id.p2paperButton);
@@ -76,6 +83,8 @@ public class Game extends AppCompatActivity {
         p2choiceImage = findViewById(R.id.p2choiceImage);
         p2score = findViewById(R.id.p2score);
         matchTimer2 = findViewById(R.id.matchTimer2);
+        p2double = findViewById(R.id.p2double);
+        p2points = findViewById(R.id.p2points);
 
         //Miscellaneous
         startButton = findViewById(R.id.startButton);
@@ -136,9 +145,8 @@ public class Game extends AppCompatActivity {
 
             gameState.selectCard(player2, Card.SCISSORS);
         });
-
-
     }
+
 
     public void startGame() {
         unGrayButtons();
@@ -148,6 +156,20 @@ public class Game extends AppCompatActivity {
         Thread gameThread = new Thread(() -> {
             while (!gameState.isGameOver()) {
                 try {
+                    if(gameState.checkIfDoublePoints()){
+                        runOnUiThread(() -> {
+                            p1points.setVisibility(View.VISIBLE);
+                            p1double.setVisibility(View.VISIBLE);
+                            p1points.setTextColor(Color.RED);
+                            p1double.setTextColor(Color.RED);
+
+                            p2points.setVisibility(View.VISIBLE);
+                            p2double.setVisibility(View.VISIBLE);
+                            p2points.setTextColor(Color.BLUE);
+                            p2double.setTextColor(Color.BLUE);
+
+                        });
+                    }
                     gameState.applyScores();
 
 
@@ -186,6 +208,7 @@ public class Game extends AppCompatActivity {
 
     private void initGame() {
         runOnUiThread(() -> {
+            gameState.resetGame();
             unGrayButtons();
             matchTimer1.setMax(gameState.getMatchLength());
             matchTimer2.setMax(gameState.getMatchLength());
@@ -196,6 +219,7 @@ public class Game extends AppCompatActivity {
 
     public void endGame() {
         runOnUiThread(() -> {
+
             p1choiceImage.setImageResource(R.drawable.ic_paper);
             p2choiceImage.setImageResource(R.drawable.ic_paper);
 

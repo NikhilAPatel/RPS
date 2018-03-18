@@ -8,6 +8,7 @@ import android.widget.EditText;
 public class Options extends AppCompatActivity {
 
     private static EditText timeInput;
+    GameState gameState = GameState.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +19,13 @@ public class Options extends AppCompatActivity {
         setContentView(R.layout.act_options);
 
         timeInput = findViewById(R.id.timeInput);
+        timeInput.setText(String.valueOf(gameState.getMatchLength()/1000));
     }
 
-    public static int getGameTime() { //returns the time the user entered. if nothing has been entered, returns a default time of 30 seconds
-        try {
-            return Integer.valueOf(timeInput.getText().toString());
-        } catch (Exception e) {
-            return 30;
-        }
+    @Override
+    public void onBackPressed()
+    {
+        gameState.setMatchLength(Integer.valueOf(timeInput.getText().toString())*1000);
+        super.onBackPressed();
     }
 }

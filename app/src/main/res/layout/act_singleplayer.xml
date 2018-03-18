@@ -223,4 +223,80 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/p2choiceImage" />
 
+    <TextView
+        android:id="@+id/p2points"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="cursive"
+        android:rotation="180"
+        android:text="Points"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/matchTimer2"
+        app:layout_constraintEnd_toStartOf="@+id/p2choiceImage"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2scissorButton"
+        app:layout_constraintVertical_bias="0.505" />
+
+    <TextView
+        android:id="@+id/p2double"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="cursive"
+        android:rotation="180"
+        android:text="Double"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/matchTimer1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/p2choiceImage"
+        app:layout_constraintTop_toBottomOf="@+id/p2rockButton" />
+
+    <TextView
+        android:id="@+id/p1double"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="cursive"
+        android:text="Double"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/p1rockButton"
+        app:layout_constraintEnd_toStartOf="@+id/p1choiceImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchTimer2" />
+
+    <TextView
+        android:id="@+id/p1points"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="cursive"
+        android:text="Points"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/p1scissorButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/p1choiceImage"
+        app:layout_constraintTop_toBottomOf="@+id/matchTimer1" />
+
 </android.support.constraint.ConstraintLayout>
