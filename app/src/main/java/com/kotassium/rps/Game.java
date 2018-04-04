@@ -12,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 import java.util.Objects;
+
+import static android.graphics.Color.*;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 //TODO add sound
 //TODO finish intro screen
@@ -23,7 +25,6 @@ import java.util.Objects;
 //TODO fix encapsulation
 //TODO implement ads
 //TODO make the buttons unclickable until the game actually starts
-
 
 
 public class Game extends AppCompatActivity {
@@ -35,15 +36,15 @@ public class Game extends AppCompatActivity {
     private ImageButton p1rockButton;
     private ImageButton p1scissorButton;
     private ImageView p1choiceImage;
-    private TextView p1double;
-    private TextView p1points;
+    private TextView p1doubleLabel;
+    private TextView p1pointsLabel;
 
     private ImageButton p2paperButton;
     private ImageButton p2rockButton;
     private ImageButton p2scissorButton;
     private ImageView p2choiceImage;
-    private TextView p2double;
-    private TextView p2points;
+    private TextView p2doubleLabel;
+    private TextView p2pointsLabel;
 
     private TextView p1score, p2score;
     private ProgressBar matchTimer1, matchTimer2;
@@ -73,8 +74,8 @@ public class Game extends AppCompatActivity {
         p1choiceImage = findViewById(R.id.p1choiceImage);
         p1score = findViewById(R.id.p1score);
         matchTimer1 = findViewById(R.id.matchTimer1);
-        p1double = findViewById(R.id.p1double);
-        p1points = findViewById(R.id.p1points);
+        p1doubleLabel = findViewById(R.id.p1double);
+        p1pointsLabel = findViewById(R.id.p1points);
 
         //Player 2 Controls
         p2paperButton = findViewById(R.id.p2paperButton);
@@ -83,13 +84,16 @@ public class Game extends AppCompatActivity {
         p2choiceImage = findViewById(R.id.p2choiceImage);
         p2score = findViewById(R.id.p2score);
         matchTimer2 = findViewById(R.id.matchTimer2);
-        p2double = findViewById(R.id.p2double);
-        p2points = findViewById(R.id.p2points);
+        p2doubleLabel = findViewById(R.id.p2double);
+        p2pointsLabel = findViewById(R.id.p2points);
 
         //Miscellaneous
         startButton = findViewById(R.id.startButton);
 
         startButton.setOnClickListener(v -> startGame());
+    }
+
+    public void initButtons() {
 
 
         p1rockButton.setOnClickListener((View v) -> {
@@ -148,7 +152,9 @@ public class Game extends AppCompatActivity {
     }
 
 
+
     public void startGame() {
+        initButtons();
         unGrayButtons();
         initGame();
         gameState.startGame();
@@ -156,18 +162,9 @@ public class Game extends AppCompatActivity {
         Thread gameThread = new Thread(() -> {
             while (!gameState.isGameOver()) {
                 try {
-                    if(gameState.checkIfDoublePoints()){
+                    if (gameState.checkIfDoublePoints()) {
                         runOnUiThread(() -> {
-                            p1points.setVisibility(View.VISIBLE);
-                            p1double.setVisibility(View.VISIBLE);
-                            p1points.setTextColor(Color.RED);
-                            p1double.setTextColor(Color.RED);
-
-                            p2points.setVisibility(View.VISIBLE);
-                            p2double.setVisibility(View.VISIBLE);
-                            p2points.setTextColor(Color.BLUE);
-                            p2double.setTextColor(Color.BLUE);
-
+                            setDoublePointsVisible();
                         });
                     }
                     gameState.applyScores();
@@ -175,14 +172,14 @@ public class Game extends AppCompatActivity {
 
                     runOnUiThread(() -> {
                         if (Objects.equals(gameState.getWinner(), "P1")) {
-                            matchTimer2.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-                            matchTimer1.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                            matchTimer2.getProgressDrawable().setColorFilter(RED, PorterDuff.Mode.SRC_IN);
+                            matchTimer1.getProgressDrawable().setColorFilter(RED, PorterDuff.Mode.SRC_IN);
                         } else if (Objects.equals(gameState.getWinner(), "P2")) {
-                            matchTimer2.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
-                            matchTimer1.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+                            matchTimer2.getProgressDrawable().setColorFilter(BLUE, PorterDuff.Mode.SRC_IN);
+                            matchTimer1.getProgressDrawable().setColorFilter(BLUE, PorterDuff.Mode.SRC_IN);
                         } else {
-                            matchTimer2.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-                            matchTimer1.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                            matchTimer2.getProgressDrawable().setColorFilter(BLACK, PorterDuff.Mode.SRC_IN);
+                            matchTimer1.getProgressDrawable().setColorFilter(BLACK, PorterDuff.Mode.SRC_IN);
                         }
                         p1score.setText(String.format(Locale.ENGLISH, "%d Points", gameState.getScore(player1)));
                         p2score.setText(String.format(Locale.ENGLISH, "%d Points", gameState.getScore(player2)));
@@ -222,6 +219,9 @@ public class Game extends AppCompatActivity {
 
             p1choiceImage.setImageResource(R.drawable.ic_paper);
             p2choiceImage.setImageResource(R.drawable.ic_paper);
+            setDoublePointsInvisible();
+            p1choiceImage.setImageResource(R.drawable.ic_initial);
+            p2choiceImage.setImageResource(R.drawable.ic_initial);
 
             if (gameState.getScore(player1) > gameState.getScore(player2)) {
                 p1score.setText(String.format(Locale.ENGLISH, "Winner: %d", gameState.getScore(player1)));
@@ -249,10 +249,10 @@ public class Game extends AppCompatActivity {
         grayButton(p2paperButton);
         grayButton(p2scissorButton);
 
-        matchTimer1.setVisibility(View.INVISIBLE);
-        matchTimer2.setVisibility(View.INVISIBLE);
+        matchTimer1.setVisibility(INVISIBLE);
+        matchTimer2.setVisibility(INVISIBLE);
 
-        startButton.setVisibility(View.VISIBLE);
+        startButton.setVisibility(VISIBLE);
     }
 
     public void unGrayButtons() {
@@ -264,20 +264,39 @@ public class Game extends AppCompatActivity {
         unGrayButton(p2paperButton);
         unGrayButton(p2scissorButton);
 
-        matchTimer1.setVisibility(View.VISIBLE);
-        matchTimer2.setVisibility(View.VISIBLE);
+        matchTimer1.setVisibility(VISIBLE);
+        matchTimer2.setVisibility(VISIBLE);
 
-        startButton.setVisibility(View.INVISIBLE);
+        startButton.setVisibility(INVISIBLE);
     }
 
     public void grayButton(ImageButton button) {
         button.setClickable(false);
-        button.setColorFilter(Color.GRAY);
+        button.setColorFilter(GRAY);
     }
 
     public void unGrayButton(ImageButton button) {
         button.setClickable(true);
-        button.setColorFilter(Color.BLACK);
+        button.setColorFilter(BLACK);
+    }
+
+    public void setDoublePointsInvisible() {
+        p1doubleLabel.setVisibility(INVISIBLE);
+        p1pointsLabel.setVisibility(INVISIBLE);
+        p2doubleLabel.setVisibility(INVISIBLE);
+        p2pointsLabel.setVisibility(INVISIBLE);
+
+    }
+
+    public void setDoublePointsVisible() {
+        p1doubleLabel.setVisibility(VISIBLE);
+        p1pointsLabel.setVisibility(VISIBLE);
+        p2doubleLabel.setVisibility(VISIBLE);
+        p2pointsLabel.setVisibility(VISIBLE);
+        p1pointsLabel.setTextColor(RED);
+        p1doubleLabel.setTextColor(RED);
+        p2pointsLabel.setTextColor(BLUE);
+        p2doubleLabel.setTextColor(BLUE);
     }
 
 }
