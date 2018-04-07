@@ -34,7 +34,7 @@
         android:textSize="24sp"
         android:textStyle="italic"
         android:typeface="monospace"
-        app:layout_constraintBottom_toTopOf="@+id/menuWifiMultiplayer"
+        app:layout_constraintBottom_toTopOf="@+id/menuSingleplayer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
         tools:text="@string/menuLocalSP" />
 
     <Button
-        android:id="@+id/menuWifiMultiplayer"
+        android:id="@+id/menuSingleplayer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toTopOf="@+id/menuOptions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menuWifiMultiplayer"
+        app:layout_constraintTop_toBottomOf="@+id/menuSingleplayer"
         tools:text="@string/menuBTMultiplayer" />
 
     <ImageButton

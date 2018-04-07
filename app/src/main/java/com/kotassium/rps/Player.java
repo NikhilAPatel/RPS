@@ -1,13 +1,13 @@
 package com.kotassium.rps;
 
 public class Player {
-    String name = "error";
-    Card selected = Card.INITIAL;
+    String name;
+    private Card selected = Card.INITIAL;
     int score = 0;
     //Powerup currentPowerup;
     //Powerup currentPowerdown;
 
-    public Player(String name) {
+    Player(String name) {
         this.name = name;
     }
 

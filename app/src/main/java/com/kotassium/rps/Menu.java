@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 public class Menu extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
 
-    Button btnLaunchSp, btnLaunchMpWifi, btnLaunchMpBluetooth;
+    Button btnLaunchLMp, btnLaunchSp, btnLaunchMpBluetooth;
     ImageButton btnMute, btnOptions;
 
     @Override
@@ -27,8 +27,8 @@ public class Menu extends AppCompatActivity {
 
 
         //Instanitate buttons
-        btnLaunchSp = findViewById(R.id.menuLocalSingleplayer);
-        btnLaunchMpWifi = findViewById(R.id.menuWifiMultiplayer);
+        btnLaunchLMp = findViewById(R.id.menuLocalSingleplayer);
+        btnLaunchSp = findViewById(R.id.menuSingleplayer);
         btnLaunchMpBluetooth = findViewById(R.id.menuBTMultiplayer);
 
         btnMute = findViewById(R.id.menuMute);
@@ -36,18 +36,17 @@ public class Menu extends AppCompatActivity {
 
 
         //Set button listeners
-        btnLaunchSp.setOnClickListener((View v) -> {
-            startActivity(new Intent(getApplicationContext(), Game.class));
-        });
+        btnLaunchLMp.setOnClickListener((View v) -> startActivity(new Intent(getApplicationContext(), TwoPlayer.class)));
+        btnLaunchSp.setOnClickListener((View v) -> startActivity(new Intent(getApplicationContext(), SinglePlayer.class)));
 
         btnMute.setOnClickListener((View v) -> {
-                if(gameState.isMuted()) {
-                    gameState.setMuted(false);
-                    btnMute.setImageResource(R.drawable.ic_mute_off);
-                } else {
-                    gameState.setMuted(true);
-                    btnMute.setImageResource(R.drawable.ic_mute_on);
-                }
+            if (gameState.isMuted()) {
+                gameState.setMuted(false);
+                btnMute.setImageResource(R.drawable.ic_mute_off);
+            } else {
+                gameState.setMuted(true);
+                btnMute.setImageResource(R.drawable.ic_mute_on);
+            }
         });
         btnOptions.setOnClickListener((View v) ->
                 startActivity(new Intent(getApplicationContext(), Options.class))

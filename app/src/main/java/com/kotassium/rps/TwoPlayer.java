@@ -1,6 +1,5 @@
 package com.kotassium.rps;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,16 +17,17 @@ import java.util.Objects;
 import static android.graphics.Color.*;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.kotassium.rps.WinState.*;
 
 //TODO add sound
-//TODO finish intro screen
-//TODO fix all of the yellows
-//TODO fix encapsulation
+//TODO finish all graphics
 //TODO implement ads
-//TODO make the buttons unclickable until the game actually starts
+//TODO Powerups
+//TODO Player vs. Computer
+//TODO add a 3 second timer before game actually starts
 
 
-public class Game extends AppCompatActivity {
+public class TwoPlayer extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
 
     int player1, player2;
@@ -59,7 +59,7 @@ public class Game extends AppCompatActivity {
 
 
         //Load main menu view
-        setContentView(R.layout.act_singleplayer);
+        setContentView(R.layout.act_twoplayer);
 
 
         //Instantiate players
@@ -152,7 +152,6 @@ public class Game extends AppCompatActivity {
     }
 
 
-
     public void startGame() {
         initButtons();
         unGrayButtons();
@@ -163,18 +162,16 @@ public class Game extends AppCompatActivity {
             while (!gameState.isGameOver()) {
                 try {
                     if (gameState.checkIfDoublePoints()) {
-                        runOnUiThread(() -> {
-                            setDoublePointsVisible();
-                        });
+                        runOnUiThread(this::setDoublePointsVisible);
                     }
                     gameState.applyScores();
 
 
                     runOnUiThread(() -> {
-                        if (Objects.equals(gameState.getWinner(), "P1")) {
+                        if (Objects.equals(gameState.getWinner(), P1WINNING)) {
                             matchTimer2.getProgressDrawable().setColorFilter(RED, PorterDuff.Mode.SRC_IN);
                             matchTimer1.getProgressDrawable().setColorFilter(RED, PorterDuff.Mode.SRC_IN);
-                        } else if (Objects.equals(gameState.getWinner(), "P2")) {
+                        } else if (Objects.equals(gameState.getWinner(), P2WINNING)) {
                             matchTimer2.getProgressDrawable().setColorFilter(BLUE, PorterDuff.Mode.SRC_IN);
                             matchTimer1.getProgressDrawable().setColorFilter(BLUE, PorterDuff.Mode.SRC_IN);
                         } else {
@@ -198,7 +195,7 @@ public class Game extends AppCompatActivity {
             }
 
             endGame();
-        }, "Game Thread");
+        }, "TwoPlayer Thread");
 
         gameThread.start();
     }

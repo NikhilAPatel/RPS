@@ -1,31 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kotassium.rps.SinglePlayer">
+    tools:context="com.kotassium.rps.TwoPlayer">
+
+
+    <ImageButton
+        android:id="@+id/p2paperButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/gameSpBtnP2PaperDesc"
+        android:rotation="180"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
+        app:layout_constraintEnd_toStartOf="@+id/p2rockButton"
+        app:layout_constraintStart_toEndOf="@+id/p2scissorButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_paper" />
 
     <ImageView
         android:id="@+id/p2choiceImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/gameSpImgP2SelectedDesc"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2paperButton"
         app:srcCompat="@drawable/ic_initial" />
 
     <ImageView
         android:id="@+id/p1choiceImage"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -52,6 +69,34 @@
         app:layout_constraintEnd_toStartOf="@+id/p1scissorButton"
         app:layout_constraintStart_toEndOf="@+id/p1rockButton"
         app:srcCompat="@drawable/ic_paper" />
+
+    <ImageButton
+        android:id="@+id/p2scissorButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/gameSpBtnP2ScissorsDesc"
+        android:rotation="180"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_scissors" />
+
+    <ImageButton
+        android:id="@+id/p2rockButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/gameSpBtnP2RockDesc"
+        android:rotation="180"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_rock" />
 
     <ImageButton
         android:id="@+id/p1rockButton"
@@ -83,15 +128,17 @@
         android:id="@+id/p2score"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="cursive"
+        android:rotation="180"
         android:textAlignment="center"
         android:textColor="#FF0000FF"
         android:textColorLink="#FF0000FF"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/p2choiceImage"
+        app:layout_constraintBottom_toTopOf="@+id/p2paperButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -171,10 +218,50 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Start Game"
-        app:layout_constraintBottom_toBottomOf="@+id/p1score"
+        app:layout_constraintBottom_toTopOf="@+id/p1choiceImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/p2choiceImage" />
+
+    <TextView
+        android:id="@+id/p2points"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="cursive"
+        android:rotation="180"
+        android:text="Points"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/matchTimer2"
+        app:layout_constraintEnd_toStartOf="@+id/p2choiceImage"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2scissorButton"
+        app:layout_constraintVertical_bias="0.505" />
+
+    <TextView
+        android:id="@+id/p2double"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="cursive"
+        android:rotation="180"
+        android:text="Double"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/matchTimer1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/p2choiceImage"
+        app:layout_constraintTop_toBottomOf="@+id/p2rockButton" />
 
     <TextView
         android:id="@+id/p1double"
