@@ -5,24 +5,25 @@ import java.util.Random;
 
 public class CPU {
 
-    GameState gameState;
-    Random rn = new Random();
+    private GameState gameState;
+    private Random rn = new Random();
 
-    public CPU() {
+    CPU() {
         this.gameState = GameState.getInstance();
     }
 
     void doTurn() {
         if (!(Objects.equals(gameState.getWinner(), WinState.P2WINNING))) {
+            gameState.setNextCpuMove();
             gameState.selectCard(1, chooseCard());
         }
     }
 
-    Card getCard() {
+    private Card getCard() {
         return gameState.getP2Card();
     }
 
-    Card chooseCard() {
+    private Card chooseCard() {
         int num = rn.nextInt(3);
         Card card = numToCard(num);
         while (Objects.equals(card, getCard()) && !numGood(num)) {
@@ -32,7 +33,7 @@ public class CPU {
         return card;
     }
 
-    Card numToCard(int num) {
+    private Card numToCard(int num) {
         switch (num) {
             case 0:
                 return Card.ROCK;
@@ -45,7 +46,7 @@ public class CPU {
         }
     }
 
-    boolean numGood(int num) {
+    private boolean numGood(int num) {
         return num == 0 || num == 1 || num == 2;
     }
 }

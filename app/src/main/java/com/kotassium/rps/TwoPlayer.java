@@ -1,8 +1,8 @@
 package com.kotassium.rps;
 
 import android.graphics.PorterDuff;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,16 +14,19 @@ import android.widget.TextView;
 import java.util.Locale;
 import java.util.Objects;
 
-import static android.graphics.Color.*;
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.BLUE;
+import static android.graphics.Color.GRAY;
+import static android.graphics.Color.RED;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.kotassium.rps.WinState.*;
+import static com.kotassium.rps.WinState.P1WINNING;
+import static com.kotassium.rps.WinState.P2WINNING;
 
 //TODO add sound
 //TODO finish all graphics
 //TODO implement ads
 //TODO Powerups
-//TODO Player vs. Computer
 //TODO add a 3 second timer before game actually starts
 
 
@@ -153,13 +156,9 @@ public class TwoPlayer extends AppCompatActivity {
 
 
     public void startGame() {
-        initButtons();
-        unGrayButtons();
-        initGame();
-        gameState.startGame();
-
+        startButton.setVisibility(INVISIBLE);
         Thread gameThread = new Thread(() -> {
-            while (!gameState.isGameOver()) {
+            while (gameState.isGameOver()) {
                 try {
                     if (gameState.checkIfDoublePoints()) {
                         runOnUiThread(this::setDoublePointsVisible);
@@ -197,10 +196,35 @@ public class TwoPlayer extends AppCompatActivity {
             endGame();
         }, "TwoPlayer Thread");
 
-        gameThread.start();
+        Thread timerThread = new Thread(() -> {
+            try {
+                p1score.setText(R.string.rock);
+                p2score.setText(R.string.rock);
+                Thread.sleep(1000);
+                p1score.setText(R.string.paper);
+                p2score.setText(R.string.paper);
+                Thread.sleep(1000);
+                p1score.setText(R.string.scissors);
+                p2score.setText(R.string.scissors);
+                Thread.sleep(1000);
+                p1score.setText(R.string.shoot);
+                p2score.setText(R.string.shoot);
+                Thread.sleep(500);
+                initGame();
+                gameState.startGame();
+                gameThread.start();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+        timerThread.start();
+
     }
 
     private void initGame() {
+        initButtons();
         runOnUiThread(() -> {
             gameState.resetGame();
             unGrayButtons();

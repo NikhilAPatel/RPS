@@ -3,27 +3,32 @@ package com.kotassium.rps;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.kotassium.rps.WinState.*;
+import static com.kotassium.rps.Difficulty.EASY;
+import static com.kotassium.rps.Difficulty.HARD;
+import static com.kotassium.rps.Difficulty.MEDIUM;
+import static com.kotassium.rps.WinState.P1WINNING;
+import static com.kotassium.rps.WinState.P2WINNING;
+import static com.kotassium.rps.WinState.TIED;
 
 class GameState {
     private static final GameState instance = new GameState();
+    private boolean muted = false;
+    private ArrayList<Player> players = new ArrayList<>();
+    private int matchLength = 30000;
+    private long endTime;
+    private int nextCpuMove = 30000;
+    private int difficulty = 2000;
 
     static GameState getInstance() {
         return instance;
     }
 
-    private boolean muted = false;
-    private ArrayList<Player> players = new ArrayList<>();
-
-    private int matchLength = 30000;
-    private long endTime;
+    boolean isMuted() {
+        return muted;
+    }
 
     void setMuted(boolean muted) {
         this.muted = muted;
-    }
-
-    boolean isMuted() {
-        return muted;
     }
 
     /**
@@ -107,15 +112,24 @@ class GameState {
     }
 
     public boolean isGameOver() {
-        return System.currentTimeMillis() > endTime;
-    }
-
-    public void setMatchLength(int matchTime) {
-        this.matchLength = matchTime;
+        return System.currentTimeMillis() <= endTime;
     }
 
     public int getMatchLength() {
         return matchLength;
+    }
+
+    public void setMatchLength(int matchTime) {
+        this.matchLength = matchTime;
+        this.nextCpuMove = matchTime;
+    }
+
+    public void setNextCpuMove() {
+        this.nextCpuMove -= this.difficulty;
+    }
+
+    public boolean canCpuMove() {
+        return this.nextCpuMove >= getMatchTime();
     }
 
     public void resetGame() {
@@ -145,8 +159,22 @@ class GameState {
         return this.getMatchTime() < this.getMatchLength() / 4;
     }
 
-    Card getP2Card(){
+    Card getP2Card() {
         return players.get(0).getSelection();
+    }
+
+    int getDifficulty() {
+        return this.difficulty;
+    }
+
+    void setDifficulty(Difficulty diff) {
+        if (Objects.equals(diff, EASY)) {
+            difficulty = 3000;
+        } else if (Objects.equals(diff, MEDIUM)) {
+            difficulty = 2000;
+        } else if (Objects.equals(diff, HARD)) {
+            difficulty = 1000;
+        }
     }
 
     public WinState getWinner() {

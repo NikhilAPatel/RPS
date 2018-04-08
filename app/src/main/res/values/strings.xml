@@ -16,4 +16,25 @@
     <string name="gameSpBtnP2PaperDesc">Player 2 paper button</string>
     <string name="gameSpBtnP2ScissorsDesc">Player 2 scissors button</string>
     <string name="gameSpImgP2SelectedDesc">Player 2\'s selection</string>
+
+    <string name="rock">Rock</string>
+    <string name="paper">Paper</string>
+    <string name="scissors">Scissors</string>
+    <string name="shoot">Shoot!</string>
+
+    <string name="gameLength">GameLength</string>
+    <string name="cpuDifficulty">CPU Difficulty</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="powerups">Powerups</string>
+    <string name="seconds">Seconds</string>
+    <string name="options">Options</string>
+    <string name="placeHolderTime">30</string>
+
+    <string name="startGame">Start Game</string>
+    <string name="doublelab">Double</string>
+    <string name="pointslab">Points</string>
+
+
 </resources>

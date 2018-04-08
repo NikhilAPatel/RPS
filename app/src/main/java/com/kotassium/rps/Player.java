@@ -2,8 +2,8 @@ package com.kotassium.rps;
 
 public class Player {
     String name;
-    private Card selected = Card.INITIAL;
     int score = 0;
+    private Card selected = Card.INITIAL;
     //Powerup currentPowerup;
     //Powerup currentPowerdown;
 
@@ -11,12 +11,12 @@ public class Player {
         this.name = name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void select(Card card) {

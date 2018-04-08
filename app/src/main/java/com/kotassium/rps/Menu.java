@@ -1,17 +1,19 @@
 package com.kotassium.rps;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+
+
 public class Menu extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
 
-    Button btnLaunchLMp, btnLaunchSp, btnLaunchMpBluetooth;
+    Button btnLaunchLMp, btnLaunchSp;
     ImageButton btnMute, btnOptions;
 
     @Override
@@ -26,10 +28,9 @@ public class Menu extends AppCompatActivity {
         setContentView(R.layout.act_main_menu);
 
 
-        //Instanitate buttons
+        //Instantiate buttons
         btnLaunchLMp = findViewById(R.id.menuLocalSingleplayer);
         btnLaunchSp = findViewById(R.id.menuSingleplayer);
-        btnLaunchMpBluetooth = findViewById(R.id.menuBTMultiplayer);
 
         btnMute = findViewById(R.id.menuMute);
         btnOptions = findViewById(R.id.menuOptions);

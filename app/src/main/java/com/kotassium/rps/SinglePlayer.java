@@ -1,8 +1,8 @@
 package com.kotassium.rps;
 
 import android.graphics.PorterDuff;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,12 +14,14 @@ import android.widget.TextView;
 import java.util.Locale;
 import java.util.Objects;
 
-import static android.graphics.Color.*;
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.BLUE;
+import static android.graphics.Color.GRAY;
+import static android.graphics.Color.RED;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.kotassium.rps.WinState.*;
-
-//TODO make cpu have to wait to do turns so its not so op.
+import static com.kotassium.rps.WinState.P1WINNING;
+import static com.kotassium.rps.WinState.P2WINNING;
 
 public class SinglePlayer extends AppCompatActivity {
 
@@ -41,6 +43,7 @@ public class SinglePlayer extends AppCompatActivity {
     private TextView p1score, cpuscore;
     private ProgressBar matchTimer1, matchTimer2;
     private Button startButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,7 @@ public class SinglePlayer extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
 
         startButton.setOnClickListener(v -> startGame());
+
     }
 
     public void initButtons() {
@@ -114,23 +118,18 @@ public class SinglePlayer extends AppCompatActivity {
 
 
     public void startGame() {
-        initButtons();
-        unGrayButtons();
-        initGame();
-        gameState.startGame();
+        startButton.setVisibility(INVISIBLE);
 
         Thread gameThread = new Thread(() -> {
-            while (!gameState.isGameOver()) {
+            while (gameState.isGameOver()) {
                 try {
                     if (gameState.checkIfDoublePoints()) {
                         runOnUiThread(this::setDoublePointsVisible);
                     }
-
-                    cpubrain.doTurn();
-
+                    if (gameState.canCpuMove()) {
+                        cpubrain.doTurn();
+                    }
                     gameState.applyScores();
-
-
                     runOnUiThread(() -> {
                         if (Objects.equals(gameState.getWinner(), P1WINNING)) {
                             matchTimer2.getProgressDrawable().setColorFilter(RED, PorterDuff.Mode.SRC_IN);
@@ -150,6 +149,7 @@ public class SinglePlayer extends AppCompatActivity {
 
                         matchTimer1.setProgress(gameState.getMatchTime());
                         matchTimer2.setProgress(gameState.getMatchTime());
+
                     });
 
                     Thread.sleep(100);
@@ -159,12 +159,36 @@ public class SinglePlayer extends AppCompatActivity {
             }
 
             endGame();
-        }, "TwoPlayer Thread");
+        }, "SinglePlayer Thread");
 
-        gameThread.start();
+        Thread timerThread = new Thread(() -> {
+            try {
+                p1score.setText(R.string.rock);
+                cpuscore.setText(R.string.rock);
+                Thread.sleep(1000);
+                p1score.setText(R.string.paper);
+                cpuscore.setText(R.string.paper);
+                Thread.sleep(1000);
+                p1score.setText(R.string.scissors);
+                cpuscore.setText(R.string.scissors);
+                Thread.sleep(1000);
+                p1score.setText(R.string.shoot);
+                cpuscore.setText(R.string.shoot);
+                Thread.sleep(500);
+                initGame();
+                gameState.startGame();
+                gameThread.start();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        timerThread.start();
+
     }
 
     private void initGame() {
+        initButtons();
         runOnUiThread(() -> {
             gameState.resetGame();
             unGrayButtons();
