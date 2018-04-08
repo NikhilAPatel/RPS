@@ -25,9 +25,7 @@ import static com.kotassium.rps.WinState.P2WINNING;
 
 //TODO add sound
 //TODO finish all graphics
-//TODO implement ads
 //TODO Powerups
-//TODO add a 3 second timer before game actually starts
 
 
 public class TwoPlayer extends AppCompatActivity {

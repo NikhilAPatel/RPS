@@ -8,6 +8,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 
 
 public class Menu extends AppCompatActivity {
@@ -15,6 +20,7 @@ public class Menu extends AppCompatActivity {
 
     Button btnLaunchLMp, btnLaunchSp;
     ImageButton btnMute, btnOptions;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,15 @@ public class Menu extends AppCompatActivity {
 
         //Load main menu view
         setContentView(R.layout.act_main_menu);
+
+        //Set Up A Banner Ad
+        MobileAds.initialize(this, "ca-app-pub-9622049821532312/3732455285");
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9622049821532312/3732455285");
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         //Instantiate buttons
