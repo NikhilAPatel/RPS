@@ -37,6 +37,7 @@ public class Game extends AppCompatActivity {
     private ImageView p1choiceImage;
     private TextView p1double;
     private TextView p1points;
+    private Button p1PowerUp;
 
     private ImageButton p2paperButton;
     private ImageButton p2rockButton;
@@ -44,6 +45,7 @@ public class Game extends AppCompatActivity {
     private ImageView p2choiceImage;
     private TextView p2double;
     private TextView p2points;
+    private Button p2PowerUp;
 
     private TextView p1score, p2score;
     private ProgressBar matchTimer1, matchTimer2;
@@ -65,7 +67,6 @@ public class Game extends AppCompatActivity {
         player1 = gameState.addPlayer("Player 1", 0);
         player2 = gameState.addPlayer("Player 2", 1);
 
-
         //Player 1 Controls
         p1paperButton = findViewById(R.id.p1paperButton);
         p1rockButton = findViewById(R.id.p1rockButton);
@@ -75,6 +76,7 @@ public class Game extends AppCompatActivity {
         matchTimer1 = findViewById(R.id.matchTimer1);
         p1double = findViewById(R.id.p1double);
         p1points = findViewById(R.id.p1points);
+        p1PowerUp=findViewById(R.id.p1power);
 
         //Player 2 Controls
         p2paperButton = findViewById(R.id.p2paperButton);
@@ -85,6 +87,7 @@ public class Game extends AppCompatActivity {
         matchTimer2 = findViewById(R.id.matchTimer2);
         p2double = findViewById(R.id.p2double);
         p2points = findViewById(R.id.p2points);
+        p2PowerUp=findViewById(R.id.p2power);
 
         //Miscellaneous
         startButton = findViewById(R.id.startButton);
@@ -119,6 +122,10 @@ public class Game extends AppCompatActivity {
             gameState.selectCard(player1, Card.SCISSORS);
         });
 
+        p1PowerUp.setOnClickListener((View v) -> {
+            p1PowerUp.setVisibility(View.INVISIBLE);
+         });
+
         p2rockButton.setOnClickListener((View v) -> {
             grayButton(p2rockButton);
 
@@ -144,6 +151,10 @@ public class Game extends AppCompatActivity {
             unGrayButton(p2rockButton);
 
             gameState.selectCard(player2, Card.SCISSORS);
+        });
+
+        p2PowerUp.setOnClickListener((View v) -> {
+            p2PowerUp.setVisibility(View.INVISIBLE);
         });
     }
 
@@ -208,6 +219,7 @@ public class Game extends AppCompatActivity {
 
     private void initGame() {
         runOnUiThread(() -> {
+            gameState.populatePowerUps();
             gameState.resetGame();
             unGrayButtons();
             matchTimer1.setMax(gameState.getMatchLength());

@@ -11,6 +11,7 @@ class GameState {
 
     private boolean muted = false;
     private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<PowerUps> powerUps=new ArrayList<>();
 
     private int matchLength = 30000;
     private long endTime;
@@ -89,6 +90,11 @@ class GameState {
             throw new NullPointerException("Invalid PID supplied, got null!");
     }
 
+    public void populatePowerUps()
+    {
+        powerUps.add(new PowerUps(PowerUps.Boosts.Doubler,.1));
+        powerUps.add(new PowerUps(PowerUps.Boosts.Doubler,.1));//TODO: randomize these
+    }
 
     public int getMatchTime() {
         return (int)(endTime - System.currentTimeMillis());
@@ -142,7 +148,7 @@ class GameState {
         return false;
     }
 
-    public String getWinner(){ //TODO make this with enums
+    public String getWinner(){
         Player p1 = players.get(0);
         Player p2 = players.get(1);
 

@@ -1,34 +1,35 @@
-package powerups;
+package com.kotassium.rps;
 
 /**
  * Created by harid on 2/23/2018.
  */
 
-public abstract class PowerUps {
-    private String name;
+public class PowerUps {
+    public enum Boosts {Doubler};
+    private Boosts boost;
     private double duration;
-    private String description;
     private boolean activityState;
     private boolean hasRun;
-    public PowerUps(String name, double duration, String description)
+    public static double DoublerDuration=.1;
+    public PowerUps(Boosts boost, double duration)
     {
-        this.name=name;
+        this.boost=boost;
         this.duration=duration;
-        this.description=description;
         activityState=false;
         hasRun=false;
     }
-    public String getName()
+    public Boosts getName()
     {
-        return name;
+        return boost;
     }
-    public double getDuration()
+    public static double getDuration(int bonusID)
     {
-        return duration;
+        switch (bonusID){
+        case 1:
+            return DoublerDuration;
+        default:
+            return -1.0;
     }
-    public String getDescription()
-    {
-        return description;
     }
     public boolean isActive()
     {
