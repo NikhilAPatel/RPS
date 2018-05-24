@@ -35,6 +35,7 @@ class GameState {
      * Adds a player to the game
      *
      * @param name The name of the new player
+     * @param index The index that the new player should be located at in the Player List
      * @return The player's ID
      */
     int addPlayer(String name, int index) {

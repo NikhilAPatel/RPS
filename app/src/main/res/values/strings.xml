@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Real-Time Roshambo</string>
+    <string name="app_name">Real-Time Rock Paper Scissors</string>
 
-    <string name="menuLogoDesc">Real-time rock paper scisors logo</string>
+    <string name="menuLogoDesc">Real-Time Rock Paper Scissors logo</string>
     <string name="menuLocalSP">Local Multiplayer</string>
     <string name="menuWiFiMP">Singleplayer</string>
     <string name="menuBTMultiplayer">Bluetooth Multiplayer</string>
