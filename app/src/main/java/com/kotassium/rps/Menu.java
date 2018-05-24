@@ -33,6 +33,7 @@ public class Menu extends AppCompatActivity {
         //Load main menu view
         setContentView(R.layout.act_main_menu);
 
+
         //Set Up A Banner Ad
         MobileAds.initialize(this, "ca-app-pub-9622049821532312/3732455285");
         AdView adView = new AdView(this);
@@ -80,6 +81,7 @@ public class Menu extends AppCompatActivity {
 
     void startMusic() {
         music = MediaPlayer.create(this, R.raw.menu_music);
+
         music.setLooping(true);
         music.start();
     }

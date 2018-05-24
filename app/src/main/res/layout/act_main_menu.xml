@@ -6,60 +6,46 @@
     android:layout_height="match_parent"
     tools:context="com.kotassium.rps.Menu">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="0dp"
-        android:layout_height="122dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:contentDescription="@string/menuLogoDesc"
-        app:layout_constraintBottom_toTopOf="@+id/menuLocalSingleplayer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
     <Button
         android:id="@+id/menuLocalSingleplayer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:background="@drawable/ic_launcher_background"
-        android:fontFamily="sans-serif-smallcaps"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:fontFamily="@font/comfortaa_bold"
         android:text="@string/menuLocalSP"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="24sp"
-        android:textStyle="italic"
         android:typeface="monospace"
-        app:layout_constraintBottom_toTopOf="@+id/menuSingleplayer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:text="@string/menuLocalSP" />
 
     <Button
         android:id="@+id/menuSingleplayer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/ic_launcher_background"
-        android:fontFamily="sans-serif-smallcaps"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:fontFamily="@font/comfortaa_bold"
         android:text="@string/menuWiFiMP"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="24sp"
-        android:textStyle="italic"
         android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menuLocalSingleplayer"
+        app:layout_constraintVertical_bias="0.201"
         tools:text="@string/menuWiFiMP" />
 
     <ImageButton
@@ -69,12 +55,12 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/button_bg_rounded_corners"
         android:contentDescription="@string/menuMuteDesc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menuSingleplayer"
-        app:layout_constraintVertical_bias="0.166"
+        app:layout_constraintVertical_bias="0.523"
         app:srcCompat="@drawable/ic_mute_off" />
 
     <ImageButton
@@ -84,12 +70,12 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/button_bg_rounded_corners"
         android:contentDescription="@string/menuOptionsDesc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menuSingleplayer"
-        app:layout_constraintVertical_bias="0.166"
+        app:layout_constraintVertical_bias="0.523"
         app:srcCompat="@android:drawable/ic_menu_preferences" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -108,6 +94,24 @@
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@+id/menuMute"></com.google.android.gms.ads.AdView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="136dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/comfortaa_bold"
+        android:text="Rock Paper Scissors"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
