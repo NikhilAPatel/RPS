@@ -21,8 +21,6 @@ public class Menu extends AppCompatActivity {
     Button btnLaunchLMp, btnLaunchSp;
     ImageButton btnMute, btnOptions;
     private MediaPlayer music;
-    private boolean musicPlaying;
-    public static Thread musicThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,6 @@ public class Menu extends AppCompatActivity {
     void startMusic() {
         music = MediaPlayer.create(this, R.raw.menu_music);
         music.setLooping(true);
-        musicPlaying = true;
         music.start();
     }
 

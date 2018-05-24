@@ -23,9 +23,9 @@ import static android.view.View.VISIBLE;
 import static com.kotassium.rps.WinState.P1WINNING;
 import static com.kotassium.rps.WinState.P2WINNING;
 
-//TODO add sound
 //TODO finish all graphics
 //TODO Powerups
+//TODO JavaDoc The Whole Code
 
 
 public class TwoPlayer extends AppCompatActivity {

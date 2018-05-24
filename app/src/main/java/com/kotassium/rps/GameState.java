@@ -1,6 +1,5 @@
 package com.kotassium.rps;
 
-import android.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,7 +7,6 @@ import java.util.Objects;
 import static com.kotassium.rps.Difficulty.EASY;
 import static com.kotassium.rps.Difficulty.HARD;
 import static com.kotassium.rps.Difficulty.MEDIUM;
-import static com.kotassium.rps.Menu.musicThread;
 import static com.kotassium.rps.WinState.P1WINNING;
 import static com.kotassium.rps.WinState.P2WINNING;
 import static com.kotassium.rps.WinState.TIED;
@@ -22,6 +20,7 @@ class GameState {
     private int nextCpuMove = 30000;
     private int difficulty = 2000;
 
+    @org.jetbrains.annotations.Contract(pure = true)
     static GameState getInstance() {
         return instance;
     }
@@ -37,7 +36,7 @@ class GameState {
     /**
      * Adds a player to the game
      *
-     * @param name The name of the new player
+     * @param name  The name of the new player
      * @param index The index that the new player should be located at in the Player List
      * @return The player's ID
      */
