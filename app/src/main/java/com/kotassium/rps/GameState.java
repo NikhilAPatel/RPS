@@ -22,7 +22,6 @@ class GameState {
     private int nextCpuMove = 30000;
     private int difficulty = 2000;
 
-
     static GameState getInstance() {
         return instance;
     }
@@ -34,19 +33,6 @@ class GameState {
     void setMuted(boolean muted) {
         this.muted = muted;
     }
-
-    void startMusic(){
-        if(!musicThread.isInterrupted()){
-            musicThread.start();
-        }
-    }
-
-    void stopMusic(){
-        if(musicThread.isInterrupted()){
-            musicThread.interrupt();
-        }
-    }
-
 
     /**
      * Adds a player to the game
