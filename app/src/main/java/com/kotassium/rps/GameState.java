@@ -1,11 +1,14 @@
 package com.kotassium.rps;
 
+import android.media.MediaPlayer;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.kotassium.rps.Difficulty.EASY;
 import static com.kotassium.rps.Difficulty.HARD;
 import static com.kotassium.rps.Difficulty.MEDIUM;
+import static com.kotassium.rps.Menu.musicThread;
 import static com.kotassium.rps.WinState.P1WINNING;
 import static com.kotassium.rps.WinState.P2WINNING;
 import static com.kotassium.rps.WinState.TIED;
@@ -19,6 +22,7 @@ class GameState {
     private int nextCpuMove = 30000;
     private int difficulty = 2000;
 
+
     static GameState getInstance() {
         return instance;
     }
@@ -30,6 +34,19 @@ class GameState {
     void setMuted(boolean muted) {
         this.muted = muted;
     }
+
+    void startMusic(){
+        if(!musicThread.isInterrupted()){
+            musicThread.start();
+        }
+    }
+
+    void stopMusic(){
+        if(musicThread.isInterrupted()){
+            musicThread.interrupt();
+        }
+    }
+
 
     /**
      * Adds a player to the game
@@ -192,5 +209,6 @@ class GameState {
         }
         return condition;
     }
+
 
 }

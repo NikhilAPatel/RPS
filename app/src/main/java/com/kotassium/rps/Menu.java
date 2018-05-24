@@ -1,6 +1,7 @@
 package com.kotassium.rps;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,12 +15,14 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 
-
 public class Menu extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
 
     Button btnLaunchLMp, btnLaunchSp;
     ImageButton btnMute, btnOptions;
+    private MediaPlayer music;
+    private boolean musicPlaying;
+    public static Thread musicThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +61,31 @@ public class Menu extends AppCompatActivity {
             if (gameState.isMuted()) {
                 gameState.setMuted(false);
                 btnMute.setImageResource(R.drawable.ic_mute_off);
+                if (!music.isPlaying()) {
+                    int length = music.getCurrentPosition();
+                    music.seekTo(length);
+                    music.start();
+                }
             } else {
                 gameState.setMuted(true);
                 btnMute.setImageResource(R.drawable.ic_mute_on);
+                if (music.isPlaying()) {
+                    music.pause();
+                }
             }
         });
         btnOptions.setOnClickListener((View v) ->
                 startActivity(new Intent(getApplicationContext(), Options.class))
         );
+        startMusic();
     }
+
+    void startMusic() {
+        music = MediaPlayer.create(this, R.raw.menu_music);
+        music.setLooping(true);
+        musicPlaying = true;
+        music.start();
+    }
+
 
 }
