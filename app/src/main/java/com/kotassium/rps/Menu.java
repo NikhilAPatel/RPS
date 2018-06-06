@@ -14,6 +14,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.io.IOException;
+
 
 public class Menu extends AppCompatActivity {
     GameState gameState = GameState.getInstance();
@@ -35,7 +37,7 @@ public class Menu extends AppCompatActivity {
 
 
         //Set Up A Banner Ad
-        MobileAds.initialize(this, "ca-app-pub-9622049821532312/3732455285");
+        MobileAds.initialize(this, "\"ca-app-pub-9622049821532312/8192551140");
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId("ca-app-pub-9622049821532312/8192551140");
@@ -56,35 +58,36 @@ public class Menu extends AppCompatActivity {
         btnLaunchLMp.setOnClickListener((View v) -> startActivity(new Intent(getApplicationContext(), TwoPlayer.class)));
         btnLaunchSp.setOnClickListener((View v) -> startActivity(new Intent(getApplicationContext(), SinglePlayer.class)));
 
-        btnMute.setOnClickListener((View v) -> {
-            if (gameState.isMuted()) {
-                gameState.setMuted(false);
-                btnMute.setImageResource(R.drawable.ic_mute_off);
-                if (!music.isPlaying()) {
-                    int length = music.getCurrentPosition();
-                    music.seekTo(length);
-                    music.start();
-                }
-            } else {
-                gameState.setMuted(true);
-                btnMute.setImageResource(R.drawable.ic_mute_on);
-                if (music.isPlaying()) {
-                    music.pause();
-                }
-            }
-        });
+//        btnMute.setOnClickListener((View v) -> {
+//            if (gameState.isMuted()) {
+//                gameState.setMuted(false);
+//                btnMute.setImageResource(R.drawable.ic_mute_off);
+//                if (!music.isPlaying()) {
+//                    int length = music.getCurrentPosition();
+//                    music.seekTo(length);
+//                    music.start();
+//                }
+//            } else {
+//                gameState.setMuted(true);
+//                btnMute.setImageResource(R.drawable.ic_mute_on);
+//                if (music.isPlaying()) {
+//                    music.pause();
+//                }
+//            }
+//        });
         btnOptions.setOnClickListener((View v) ->
                 startActivity(new Intent(getApplicationContext(), Options.class))
         );
-        startMusic();
+
+//        startMusic();
+
     }
 
-    void startMusic() {
-        music = MediaPlayer.create(this, R.raw.menu_music);
-
-        music.setLooping(true);
-        music.start();
-    }
+//    void startMusic(){
+//        music = MediaPlayer.create(this, R.raw.menu_music);
+//        music.setLooping(true);
+//        music.start();
+//    }
 
 
 }
