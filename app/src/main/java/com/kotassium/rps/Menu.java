@@ -38,7 +38,7 @@ public class Menu extends AppCompatActivity {
         MobileAds.initialize(this, "ca-app-pub-9622049821532312/3732455285");
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
-        adView.setAdUnitId("ca-app-pub-9622049821532312/3732455285");
+        adView.setAdUnitId("ca-app-pub-9622049821532312/8192551140");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
