@@ -195,25 +195,40 @@ public class TwoPlayer extends AppCompatActivity {
         }, "TwoPlayer Thread");
 
         Thread timerThread = new Thread(() -> {
-            try {
+            runOnUiThread(() -> {
                 p1score.setText(R.string.rock);
                 p2score.setText(R.string.rock);
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 p1score.setText(R.string.paper);
                 p2score.setText(R.string.paper);
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 p1score.setText(R.string.scissors);
                 p2score.setText(R.string.scissors);
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 p1score.setText(R.string.shoot);
                 p2score.setText(R.string.shoot);
-                Thread.sleep(500);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 initGame();
                 gameState.startGame();
                 gameThread.start();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            });
+
         });
 
 
